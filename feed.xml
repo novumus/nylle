@@ -1,0 +1,933 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom" xmlns:media="http://search.yahoo.com/mrss/">
+    <title>nylle</title>
+    <link href="https://novumus.github.io/nylle/feed.xml" rel="self" />
+    <link href="https://novumus.github.io/nylle" />
+    <updated>2025-09-25T21:03:41+02:00</updated>
+    <author>
+        <name>nylle</name>
+    </author>
+    <id>https://novumus.github.io/nylle</id>
+
+    <entry>
+        <title>How macOS Tracks Installed Packages: A Look at Receipts</title>
+        <author>
+            <name>nylle</name>
+        </author>
+        <link href="https://novumus.github.io/nylle/blog/understanding-package-receipts-on-macos/"/>
+        <id>https://novumus.github.io/nylle/blog/understanding-package-receipts-on-macos/</id>
+        <media:content url="https://novumus.github.io/nylle/media/posts/9/Receipts-2.png" medium="image" />
+            <category term="terminal"/>
+            <category term="tech"/>
+            <category term="pkg"/>
+            <category term="package"/>
+            <category term="macOS"/>
+
+        <updated>2025-09-25T20:06:58+02:00</updated>
+            <summary>
+                <![CDATA[
+                        <img src="https://novumus.github.io/nylle/media/posts/9/Receipts-2.png" alt="" />
+                    If you’ve ever installed a .pkg file on your Mac, you might think the installation is invisible once it’s done. But behind the scenes, macOS keeps a detailed record called a receipt. Think of it as a digital footprint of every package your system installs.
+                ]]>
+            </summary>
+        <content type="html">
+            <![CDATA[
+                    <p><img src="https://novumus.github.io/nylle/media/posts/9/Receipts-2.png" class="type:primaryImage" alt="" /></p>
+                <div class="relative basis-auto flex-col -mb-(--composer-overlap-px) [--composer-overlap-px:28px] grow flex overflow-hidden">
+<div class="flex h-full flex-col overflow-y-auto thread-xl:pt-(--header-height) [scrollbar-gutter:stable_both-edges]">
+<div class="flex h-full flex-col overflow-y-auto thread-xl:pt-(--header-height) [scrollbar-gutter:stable_both-edges]">
+<div class="flex flex-col text-sm thread-xl:pt-header-height pb-25">
+<article class="text-token-text-primary w-full focus:outline-none scroll-mt-[calc(var(--header-height)+min(200px,max(70px,20svh)))]" dir="auto" tabindex="-1" data-turn-id="request-WEB:bddf0a66-69f9-48d3-bc9e-af4c431c85ed-4" data-testid="conversation-turn-10" data-scroll-anchor="true" data-turn="assistant">
+<div class="text-base my-auto mx-auto pb-10 [--thread-content-margin:--spacing(4)] thread-sm:[--thread-content-margin:--spacing(6)] thread-lg:[--thread-content-margin:--spacing(16)] px-(--thread-content-margin)">
+<div class="[--thread-content-max-width:40rem] thread-lg:[--thread-content-max-width:48rem] mx-auto max-w-(--thread-content-max-width) flex-1 group/turn-messages focus-visible:outline-hidden relative flex w-full min-w-0 flex-col agent-turn" tabindex="-1">
+<div class="flex max-w-full flex-col grow">
+<div class="min-h-8 text-message relative flex w-full flex-col items-end gap-2 text-start break-words whitespace-normal [.text-message+&amp;]:mt-5" dir="auto" data-message-author-role="assistant" data-message-id="66717046-dc23-471d-bc1e-fdeb85b9416d" data-message-model-slug="gpt-5">
+<div class="flex w-full flex-col gap-1 empty:hidden first:pt-[3px]">
+<div class="markdown prose dark:prose-invert w-full break-words dark markdown-new-styling">
+<p data-start="159" data-end="423">If you’ve ever installed a <code data-start="186" data-end="192">.pkg</code> file on your Mac, you might think the installation is invisible once it’s done. But behind the scenes, macOS keeps a detailed record called a <strong data-start="335" data-end="346">receipt</strong>. Think of it as a digital footprint of every package your system installs.</p>
+<h3 data-start="425" data-end="449">What Is a Receipt?</h3>
+<p data-start="450" data-end="561">A receipt is a small file (or set of files) that contains metadata about an installed package. This includes:</p>
+<ul data-start="562" data-end="679">
+<li data-start="562" data-end="588">
+<p data-start="564" data-end="588">The package identifier</p>
+</li>
+<li data-start="589" data-end="611">
+<p data-start="591" data-end="611">The version number</p>
+</li>
+<li data-start="612" data-end="637">
+<p data-start="614" data-end="637">When it was installed</p>
+</li>
+<li data-start="638" data-end="679">
+<p data-start="640" data-end="679">Which files were added to your system</p>
+</li>
+</ul>
+<p data-start="681" data-end="827">Receipts help macOS—and you—keep track of what’s on your computer, which is especially handy for troubleshooting or auditing installed software.</p>
+<h3 data-start="829" data-end="857">Where to Find Receipts</h3>
+<p data-start="858" data-end="936">Depending on your macOS version, receipts are stored in different locations:</p>
+<ul data-start="937" data-end="1037">
+<li data-start="937" data-end="986">
+<p data-start="939" data-end="986"><strong data-start="939" data-end="964">macOS 10.7 and later:</strong> <code data-start="965" data-end="984">/var/db/receipts/</code></p>
+</li>
+<li data-start="987" data-end="1037">
+<p data-start="989" data-end="1037"><strong data-start="989" data-end="1014">Older macOS versions:</strong> <code data-start="1015" data-end="1035">/Library/Receipts/</code></p>
+</li>
+</ul>
+<p data-start="1039" data-end="1081">Each receipt usually comes in two parts:</p>
+<ol data-start="1082" data-end="1209">
+<li data-start="1082" data-end="1122">
+<p data-start="1085" data-end="1122">A <code data-start="1087" data-end="1095">.plist</code> file containing metadata</p>
+</li>
+<li data-start="1123" data-end="1209">
+<p data-start="1126" data-end="1209">A <code data-start="1128" data-end="1134">.bom</code> (Bill of Materials) file listing all the files installed by that package</p>
+</li>
+</ol>
+<h3 data-start="1211" data-end="1242">How to Work with Receipts</h3>
+<p data-start="1244" data-end="1308">Here are some practical Terminal commands to explore receipts:</p>
+<p data-start="1310" data-end="1346"><strong data-start="1310" data-end="1344">1. List all installed packages</strong></p>
+<div class="contain-inline-size rounded-2xl relative bg-token-sidebar-surface-primary">
+<div class="sticky top-9">
+<div class="absolute end-0 bottom-0 flex h-9 items-center pe-2">
+<div class="bg-token-bg-elevated-secondary text-token-text-secondary flex items-center gap-4 rounded-sm px-2 font-sans text-xs"> </div>
+</div>
+</div>
+<div class="overflow-y-auto p-4" dir="ltr"><code class="whitespace-pre! language-bash">pkgutil --pkgs
+</code></div>
+</div>
+<p data-start="1375" data-end="1417"><strong data-start="1375" data-end="1415">2. Get detailed info about a package</strong></p>
+<div class="contain-inline-size rounded-2xl relative bg-token-sidebar-surface-primary">
+<div class="sticky top-9">
+<div class="absolute end-0 bottom-0 flex h-9 items-center pe-2">
+<div class="bg-token-bg-elevated-secondary text-token-text-secondary flex items-center gap-4 rounded-sm px-2 font-sans text-xs"> </div>
+</div>
+</div>
+<div class="overflow-y-auto p-4" dir="ltr"><code class="whitespace-pre! language-bash">pkgutil --pkg-info com.company.pkgname
+</code></div>
+</div>
+<p data-start="1469" data-end="1528">This will show the package ID, version, and install time.</p>
+<p data-start="1530" data-end="1569"><strong data-start="1530" data-end="1567">3. See which files were installed</strong></p>
+<div class="contain-inline-size rounded-2xl relative bg-token-sidebar-surface-primary">
+<div class="sticky top-9">
+<div class="absolute end-0 bottom-0 flex h-9 items-center pe-2">
+<div class="bg-token-bg-elevated-secondary text-token-text-secondary flex items-center gap-4 rounded-sm px-2 font-sans text-xs"> </div>
+</div>
+</div>
+<div class="overflow-y-auto p-4" dir="ltr"><code class="whitespace-pre! language-bash">pkgutil --files com.company.pkgname
+</code></div>
+</div>
+<p data-start="1619" data-end="1658"><strong data-start="1619" data-end="1656">4. Inspect receipt files directly</strong></p>
+<ul data-start="1659" data-end="1677">
+<li data-start="1659" data-end="1677">
+<p data-start="1661" data-end="1677">View metadata:</p>
+</li>
+</ul>
+<div class="contain-inline-size rounded-2xl relative bg-token-sidebar-surface-primary">
+<div class="sticky top-9">
+<div class="absolute end-0 bottom-0 flex h-9 items-center pe-2">
+<div class="bg-token-bg-elevated-secondary text-token-text-secondary flex items-center gap-4 rounded-sm px-2 font-sans text-xs"> </div>
+</div>
+</div>
+<div class="overflow-y-auto p-4" dir="ltr"><code class="whitespace-pre! language-bash">plutil -p /var/db/receipts/com.company.pkgname.plist
+</code></div>
+</div>
+<ul data-start="1743" data-end="1776">
+<li data-start="1743" data-end="1776">
+<p data-start="1745" data-end="1776">View the installed file list:</p>
+</li>
+</ul>
+<div class="contain-inline-size rounded-2xl relative bg-token-sidebar-surface-primary">
+<div class="sticky top-9">
+<div class="absolute end-0 bottom-0 flex h-9 items-center pe-2">
+<div class="bg-token-bg-elevated-secondary text-token-text-secondary flex items-center gap-4 rounded-sm px-2 font-sans text-xs"> </div>
+</div>
+</div>
+<div class="overflow-y-auto p-4" dir="ltr"><code class="whitespace-pre! language-bash">lsbom /var/db/receipts/com.company.pkgname.bom
+</code></div>
+</div>
+<h3 data-start="1837" data-end="1859">Why This Matters</h3>
+<p data-start="1860" data-end="2007">Receipts aren’t just for macOS itself—they’re incredibly useful for anyone managing multiple Macs or troubleshooting installations. They let you:</p>
+<ul data-start="2008" data-end="2158">
+<li data-start="2008" data-end="2036">
+<p data-start="2010" data-end="2036">Audit installed packages</p>
+</li>
+<li data-start="2037" data-end="2077">
+<p data-start="2039" data-end="2077">Verify versions of critical software</p>
+</li>
+<li data-start="2078" data-end="2123">
+<p data-start="2080" data-end="2123">Track which files came from which package</p>
+</li>
+<li data-start="2124" data-end="2158">
+<p data-start="2126" data-end="2158">Diagnose installation problems</p>
+</li>
+</ul>
+<p data-start="2160" data-end="2359">So next time you install a <code data-start="2187" data-end="2193">.pkg</code>, remember: your Mac isn’t just dropping files on your system. It’s keeping a careful record, quietly and efficiently, so you—or your IT team—can always check back.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="z-0 flex min-h-[46px] justify-start"> </div>
+</div>
+</div>
+</article>
+</div>
+</div>
+</div>
+</div>
+            ]]>
+        </content>
+    </entry>
+    <entry>
+        <title>macOS apps - How to find Bundle IDs</title>
+        <author>
+            <name>nylle</name>
+        </author>
+        <link href="https://novumus.github.io/nylle/blog/macos-apps-how-to-find-bundle-ids/"/>
+        <id>https://novumus.github.io/nylle/blog/macos-apps-how-to-find-bundle-ids/</id>
+        <media:content url="https://novumus.github.io/nylle/media/posts/8/bundleID.png" medium="image" />
+            <category term="tech"/>
+            <category term="package"/>
+            <category term="macOS"/>
+            <category term="apple"/>
+            <category term="CFBundleShortVersionString"/>
+            <category term="CFBundleIdentifier"/>
+
+        <updated>2025-04-10T22:09:23+02:00</updated>
+            <summary>
+                <![CDATA[
+                        <img src="https://novumus.github.io/nylle/media/posts/8/bundleID.png" alt="" />
+                    There are several common ways to find the Bundle ID / CFBundleIdentifier of a macOS app. We'll focus on utilizing the Apple onboard macOS software tools Terminal and Finder. Terminal with osascript You can find the Bundle ID of an application on a macOS system using&hellip;
+                ]]>
+            </summary>
+        <content type="html">
+            <![CDATA[
+                    <p><img src="https://novumus.github.io/nylle/media/posts/8/bundleID.png" class="type:primaryImage" alt="" /></p>
+                <div class="el-p">
+<p dir="auto">There are several common ways to find the Bundle ID / CFBundleIdentifier<strong data-start="610" data-end="632"> </strong>of a macOS app. We'll focus on utilizing the Apple onboard macOS software tools <a data-tooltip-position="top" aria-label="https://support.apple.com/guide/terminal/welcome/mac" rel="noopener nofollow" class="external-link" href="https://support.apple.com/guide/terminal/welcome/mac" target="_blank">Terminal</a> and Finder.</p>
+</div>
+<div class="el-p">
+<p dir="auto">Terminal with osascript</p>
+</div>
+<div class="el-p">
+<p dir="auto">You can find the Bundle ID of an application on a macOS system using the terminal and a command-line tool built into macOS called osascript.</p>
+</div>
+<div class="el-p">
+<p dir="auto">How to find the app Bundle ID with the terminal and osascript:</p>
+</div>
+<div class="el-ol">
+<ol>
+<li dir="auto" data-line="0">
+<p>Open Terminal.</p>
+</li>
+<li dir="auto" data-line="2">
+<p>Enter the following command:</p>
+</li>
+</ol>
+</div>
+<div class="el-p">
+<p dir="auto">osascript -e 'id of app "Application Name"'</p>
+</div>
+<div class="el-p">
+<p dir="auto">Replace "Application Name" with the application name you're interested in. For example, if you want to find the Bundle ID for Safari, you will enter:</p>
+</div>
+<div class="el-p">
+<p dir="auto">osascript -e 'id of app "Safari"'</p>
+</div>
+<div class="el-ol">
+<ol>
+<li dir="auto" data-line="0">Press Enter. The Bundle ID of the application should appear.</li>
+</ol>
+</div>
+<div class="el-p">
+<p dir="auto">This command asks AppleScript (via osascript) to get the Bundle ID of the specified application and works for both built-in applications like Safari and third-party applications.</p>
+<p dir="auto">Alternative or maybe an more advanced way is to read the info.plist file in an app. </p>
+<p data-start="552" data-end="941">The <strong data-start="610" data-end="632">CFBundleIdentifier</strong> and <strong data-start="637" data-end="667">CFBundleShortVersionString</strong> for a macOS application can be obtained from the <code data-start="717" data-end="753">&lt;app_name&gt;.app/Contents/Info.plist</code> file.</p>
+<p data-start="552" data-end="941">Alternatively, these values may be queried directly via the macOS Terminal. For instance, the commands below return the bundle identifier and version number of Keka.</p>
+<div class="contain-inline-size rounded-2xl relative bg-token-sidebar-surface-primary">
+<div class="sticky top-9">
+<div class="absolute end-0 bottom-0 flex h-9 items-center pe-2">
+<div class="bg-token-bg-elevated-secondary text-token-text-secondary flex items-center gap-4 rounded-sm px-2 font-sans text-xs"> </div>
+</div>
+</div>
+<div class="overflow-y-auto p-4" dir="ltr"><code class="whitespace-pre! language-bash">defaults <span class="hljs-built_in">read</span> /Applications/Keka.app/Contents/Info.plist CFBundleIdentifier</code></div>
+<div dir="ltr"> </div>
+<div class="overflow-y-auto p-4" dir="ltr"><code class="whitespace-pre! language-bash">defaults <span class="hljs-built_in">read</span> /Applications/Keka.app/Contents/Info.plist CFBundleShortVersionString
+</code></div>
+</div>
+</div>
+            ]]>
+        </content>
+    </entry>
+    <entry>
+        <title>Full Disk Access</title>
+        <author>
+            <name>nylle</name>
+        </author>
+        <link href="https://novumus.github.io/nylle/blog/full-disk-access/"/>
+        <id>https://novumus.github.io/nylle/blog/full-disk-access/</id>
+        <media:content url="https://novumus.github.io/nylle/media/posts/5/full_disk_access.jpg" medium="image" />
+            <category term="terminal"/>
+            <category term="tech"/>
+            <category term="mobileconfig"/>
+            <category term="macOS"/>
+            <category term="kTCCServiceSystemPolicyAllFiles"/>
+            <category term="iMazing"/>
+
+        <updated>2025-02-23T16:07:00+01:00</updated>
+            <summary>
+                <![CDATA[
+                        <img src="https://novumus.github.io/nylle/media/posts/5/full_disk_access.jpg" alt="" />
+                    Full Disk Access (Allows the application access to all protected files, including system administration files) is need for an app to function correctly on macOS. How can that be fixed with an mobileconfig profile and send it out to all macOS clients using MDM. Note!&hellip;
+                ]]>
+            </summary>
+        <content type="html">
+            <![CDATA[
+                    <p><img src="https://novumus.github.io/nylle/media/posts/5/full_disk_access.jpg" class="type:primaryImage" alt="" /></p>
+                <p>Full Disk Access (Allows the application access to all protected files, including system administration files) is need for an app to function correctly on macOS. How can that be fixed with an mobileconfig profile and send it out to all macOS clients using MDM.</p><p><em>Note! Microsoft Defender.app is only used as an example.</em> </p><h3 id="codesign">Codesign</h3>
+<p>First lets find the identifier, open Terminal and type the command and path to the application to get it.</p><ol>
+<li>Open Terminal</li>
+<li>Type:</li>
+</ol>
+<pre><code>codesign -dr - &quot;/Applications/Microsoft Defender.app&quot;
+</code></pre>
+<blockquote>
+<h4 id="output">output:</h4>
+<ul>
+<li>Executable=/Applications/Microsoft Defender.app/Contents/MacOS/wdavdaemon </li>
+<li>designated =&gt; identifier “com.microsoft.wdav” and anchor apple generic and certificate 1[field.1.2.840.113635.100.6.2.6] /* exists <em>/ and certificate leaf[field.1.2.840.113635.100.6.1.13] /</em> exists */ and certificate leaf[subject.OU] = UBF8T346G9</li>
+</ul>
+</blockquote>
+<h4 id="help-for-the-command">Help for the command:</h4>
+<ul>
+<li><code>codesign</code> → A macOS command-line tool for managing code signatures.</li>
+<li><code>-dr -</code> →<ul>
+<li><code>-d</code> → Displays information about the app’s signature.</li>
+<li><code>-r -</code> → Displays the designated requirement (a policy that defines how the app’s signature is validated).</li>
+</ul>
+</li>
+<li><code>/Applications/Microsoft Defender.app&quot;</code> → The path to the <strong>Microsoft Defender</strong> app (if installed).</li>
+</ul>
+<h3 id="check-if-application-has-full-disk-access">Check if application has Full Disk Access</h3>
+<p>To check if an application already have Full Disk Access or if it is working after Full Disk Access has been applied run the following command. If there is more that one result listed some searching for the application may be needed in the list. <em>(Sometimes Full Disk Access still work even though it does not show here or can be seen in the GUI under System Settings)</em></p><ol>
+<li>Open Terminal </li>
+<li>Type:</li>
+</ol>
+<pre><code>sudo sqlite3 &quot;/Library/Application Support/com.apple.TCC/TCC.db&quot; &quot;SELECT * FROM access WHERE service=&#39;kTCCServiceSystemPolicyAllFiles&#39;;&quot;
+</code></pre>
+<blockquote>
+<h4 id="output-1">output:</h4>
+<ul>
+<li>kTCCServiceSystemPolicyAllFiles|com.microsoft.wdav|0|1|1|2024-02-23 10:30:45|2024-02-22 14:15:12|UNUSED|UNUSED|1234567890</li>
+</ul>
+</blockquote>
+<h3 id="understanding-the-output"><strong>Understanding the Output</strong></h3>
+<p>Each field represents different values of the application. </p><table>
+<thead>
+<tr>
+<th><strong>Field</strong></th>
+<th><strong>Example Value</strong></th>
+<th><strong>Description</strong></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>service</strong></td>
+<td><code>kTCCServiceSystemPolicyAllFiles</code></td>
+<td>The type of permission requested (e.g., Full Disk Access, Camera, Microphone).</td>
+</tr>
+<tr>
+<td><strong>client</strong></td>
+<td><code>com.microsoft.wdav</code></td>
+<td>The bundle identifier of the application.</td>
+</tr>
+<tr>
+<td><strong>client_type</strong></td>
+<td><code>0</code></td>
+<td>0 = App bundle, 1 = Command-line tool.</td>
+</tr>
+<tr>
+<td><strong>allowed</strong></td>
+<td><code>1</code></td>
+<td>1 = Allowed, 0 = Denied.</td>
+</tr>
+<tr>
+<td><strong>prompt_count</strong></td>
+<td><code>1</code></td>
+<td>Number of times the app was prompted for access.</td>
+</tr>
+<tr>
+<td><strong>indirect_object_identifier</strong></td>
+<td><code>2024-02-23 10:30:45</code></td>
+<td>Last modification timestamp.</td>
+</tr>
+<tr>
+<td><strong>direct_object_identifier</strong></td>
+<td><code>2024-02-22 14:15:12</code></td>
+<td>Timestamp of when permission was first granted.</td>
+</tr>
+<tr>
+<td><strong>flags</strong></td>
+<td><code>UNUSED</code></td>
+<td>Typically unused.</td>
+</tr>
+<tr>
+<td><strong>last_modified_by_username</strong></td>
+<td><code>UNUSED</code></td>
+<td>Usually blank for system-wide permissions.</td>
+</tr>
+<tr>
+<td><strong>csreq</strong></td>
+<td><code>1234567890</code></td>
+<td>A code signing requirement hash.</td>
+</tr>
+</tbody></table>
+<p>Defender had Full Disk Access to the system on this mac, it could be seen in the output that it was a 1 for the Allowed.</p><h3 id="create-a-mobileconfig-file">Create a mobileconfig file</h3>
+<p>Create the mobileconfig file that can be used to send out from MDM to all other macOS clients. </p><p>To create the mobileconfig file lets use iMazing.</p><ol>
+<li>Download iMazing app from Apple App Store <a href="https://apps.apple.com/se/app/imazing-profile-editor/id1487860882?l=en-GB&mt=12">iMazing</a></li>
+<li>Open the app and search for Privacy Preferences Policy Control and add that.</li>
+<li>Under Privacy Preferences Policy Control scroll down to <strong>Full Disk Access</strong> section.</li>
+<li>Fill in <ul>
+<li>Identifier: com.microsoft.defender</li>
+<li>Identify Type: Bundle ID</li>
+<li>Code Requirement: identifier “com.microsoft.wdav” and anchor apple generic and certificate 1[field.1.2.840.113635.100.6.2.6] /* exists <em>/ and certificate leaf[field.1.2.840.113635.100.6.1.13] /</em> exists */ and certificate leaf[subject.OU] = UBF8T346G9</li>
+<li>Static Code: <em>Optional</em></li>
+<li>Authorized: No Value</li>
+<li>Allowed: 1</li>
+<li>Comment: <em>Optional</em></li>
+</ul>
+</li>
+</ol>
+<p>There is a possibility to use Path instead of “Bundle ID” as “Identify Type” that could be when the App Has No Bundle ID. Or check in this table below. </p><table>
+<thead>
+<tr>
+<th>Scenario</th>
+<th>Use Bundle ID?</th>
+<th>Use Path?</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Standard installed app</td>
+<td>✅ Yes</td>
+<td>❌ No</td>
+</tr>
+<tr>
+<td>Modified or patched app</td>
+<td>❌ No</td>
+<td>✅ Yes</td>
+</tr>
+<tr>
+<td>Command-line tool / standalone binary</td>
+<td>❌ No</td>
+<td>✅ Yes</td>
+</tr>
+<tr>
+<td>Running app from an external drive</td>
+<td>❌ No</td>
+<td>✅ Yes</td>
+</tr>
+<tr>
+<td>Temporary or unsigned app</td>
+<td>❌ No</td>
+<td>✅ Yes</td>
+</tr>
+</tbody></table>
+<p><em>But this is a Standard installed app so we use the above this is only for demonstration.</em></p><p>If using Path it should look like this: </p><ul>
+<li>Identifier: /Applications/Microsoft Defender.app/Contents/MacOS/wdavdaemon </li>
+<li>Identify type: Path</li>
+<li>Code Requirement: identifier “com.microsoft.wdav” and anchor apple generic and certificate 1[field.1.2.840.113635.100.6.2.6] /* exists <em>/ and certificate leaf[field.1.2.840.113635.100.6.1.13] /</em> exists */ and certificate leaf[subject.OU] = UBF8T346G9</li>
+<li>Static Code: <em>Optional</em></li>
+<li>Authorized: No Value</li>
+<li>Allowed: 1</li>
+<li>Comment: <em>Optional</em></li>
+</ul>
+<p>Don’t forget to update the General section in Imazing and save the profile. </p><p>Example from the saved mobileconfig file.</p><pre><code>            &lt;dict&gt;
+                &lt;key&gt;SystemPolicyAllFiles&lt;/key&gt;
+                &lt;array&gt;
+                    &lt;dict&gt;
+                        &lt;key&gt;Allowed&lt;/key&gt;
+                        &lt;true/&gt;
+                        &lt;key&gt;CodeRequirement&lt;/key&gt;
+                        &lt;string&gt;identifier &quot;com.microsoft.wdav&quot; and anchor apple generic and certificate 1[field.1.2.840.113635.100.6.2.6] /* exists */ and certificate leaf[field.1.2.840.113635.100.6.1.13] /* exists */ and certificate leaf[subject.OU] = UBF8T346G9&lt;/string&gt;
+                        &lt;key&gt;Comment&lt;/key&gt;
+                        &lt;string&gt;&lt;/string&gt;
+                        &lt;key&gt;Identifier&lt;/key&gt;
+                        &lt;string&gt;com.microsoft.wdav&lt;/string&gt;
+                        &lt;key&gt;IdentifierType&lt;/key&gt;
+                        &lt;string&gt;bundleID&lt;/string&gt;
+                    &lt;/dict&gt;
+                &lt;/array&gt;
+            &lt;/dict&gt;
+</code></pre>
+<p>Deploy it via MDM as a Device Channel deployment.</p><p>Do want to it manually a great tool to grant Full Disk Access is: <a href="https://github.com/jamf/PPPC-Utility">Privacy Preferences Policy Control (PPPC) Utility</a></p>
+            ]]>
+        </content>
+    </entry>
+    <entry>
+        <title>Create a macOS package with Packages</title>
+        <author>
+            <name>nylle</name>
+        </author>
+        <link href="https://novumus.github.io/nylle/blog/create-a-macos-package-with-packages/"/>
+        <id>https://novumus.github.io/nylle/blog/create-a-macos-package-with-packages/</id>
+        <media:content url="https://novumus.github.io/nylle/media/posts/4/cover_create_package_top1000px.jpg" medium="image" />
+            <category term="tech"/>
+            <category term="postinstall"/>
+            <category term="pkg"/>
+            <category term="packages"/>
+            <category term="package"/>
+            <category term="macOS"/>
+            <category term="dmg"/>
+            <category term="CFBundleShortVersionString"/>
+            <category term="CFBundleIdentifier"/>
+
+        <updated>2024-01-24T16:07:00+01:00</updated>
+            <summary>
+                <![CDATA[
+                        <img src="https://novumus.github.io/nylle/media/posts/4/cover_create_package_top1000px.jpg" alt="" />
+                    In this guide we will go through two ways to use the application Packages to create a macOS packages from a pkg or dmg. Package can after its build be used to distribute with your favorite MDM. The Packages application used to create the pkg&hellip;
+                ]]>
+            </summary>
+        <content type="html">
+            <![CDATA[
+                    <p><img src="https://novumus.github.io/nylle/media/posts/4/cover_create_package_top1000px.jpg" class="type:primaryImage" alt="" /></p>
+                <p><strong>In this guide we will go through two ways to use the application Packages to create a macOS packages from a pkg or dmg. Package can after its build be used to distribute with your favorite MDM.</strong></p><p>The Packages application used to create the pkg can be downloaded here: <a href="http://s.sudre.free.fr/Software/Packages/about.html">Packages</a></p><h2 id="first-example-on-how-to-use-packages">First example on how to use Packages</h2>
+<p>So in this example we want to add a pkg within another pkg so we can include a configurations file. That configuration file can contain some settings needed for the installation or some company unique settings.</p><p><strong>Requirements</strong></p><ul>
+<li>Packages installed on your Mac computer</li>
+<li>pkg file (GoogleChrome.pkg is used here to demonstrate)</li>
+<li>postinstall (see below how to create this file)</li>
+<li>configuration file (default.conf)</li>
+</ul>
+<ol>
+<li><p>Open packages and choose Distribution and click Next
+<figure class="post__image"><img loading="lazy" src="https://novumus.github.io/nylle/media/posts/4/Packages.png" alt="Image description" width="1272" height="846" sizes="(max-width: 1920px) 100vw, 1920px" srcset="https://novumus.github.io/nylle/media/posts/4/responsive/Packages-xs.png 640w ,https://novumus.github.io/nylle/media/posts/4/responsive/Packages-sm.png 768w ,https://novumus.github.io/nylle/media/posts/4/responsive/Packages-md.png 1024w ,https://novumus.github.io/nylle/media/posts/4/responsive/Packages-lg.png 1366w ,https://novumus.github.io/nylle/media/posts/4/responsive/Packages-xl.png 1600w ,https://novumus.github.io/nylle/media/posts/4/responsive/Packages-2xl.png 1920w"></figure></p></li>
+<li><p>Give you project a name and click Create
+<figure class="post__image"><img loading="lazy" src="https://novumus.github.io/nylle/media/posts/4/Packages-1.png" alt="Image description" width="1272" height="850" sizes="(max-width: 1920px) 100vw, 1920px" srcset="https://novumus.github.io/nylle/media/posts/4/responsive/Packages-1-xs.png 640w ,https://novumus.github.io/nylle/media/posts/4/responsive/Packages-1-sm.png 768w ,https://novumus.github.io/nylle/media/posts/4/responsive/Packages-1-md.png 1024w ,https://novumus.github.io/nylle/media/posts/4/responsive/Packages-1-lg.png 1366w ,https://novumus.github.io/nylle/media/posts/4/responsive/Packages-1-xl.png 1600w ,https://novumus.github.io/nylle/media/posts/4/responsive/Packages-1-2xl.png 1920w"></figure></p></li>
+<li><p>You should now see your newly created project. But from now on we will only look at the tabs we need to use for this project. Click on Packages/Google Chrome and here we will change “mygreatcompany” and version to something else. 
+<figure class="post__image"><img loading="lazy" src="https://novumus.github.io/nylle/media/posts/4/Packages-3.png" alt="Image description" width="2048" height="1086" sizes="(max-width: 1920px) 100vw, 1920px" srcset="https://novumus.github.io/nylle/media/posts/4/responsive/Packages-3-xs.png 640w ,https://novumus.github.io/nylle/media/posts/4/responsive/Packages-3-sm.png 768w ,https://novumus.github.io/nylle/media/posts/4/responsive/Packages-3-md.png 1024w ,https://novumus.github.io/nylle/media/posts/4/responsive/Packages-3-lg.png 1366w ,https://novumus.github.io/nylle/media/posts/4/responsive/Packages-3-xl.png 1600w ,https://novumus.github.io/nylle/media/posts/4/responsive/Packages-3-2xl.png 1920w"></figure></p></li>
+</ol>
+<p>Find Identifier and Version</p><p>We will look at the original pkg file for its Identifier. You can unpack the *.pkg file from the Terminal. </p><pre><code>pkgutil --expand /Users/yourusername/Desktop/GoogleChrome.pkg //Users/yourusername/Desktop/tmp.
+</code></pre>
+<p><a href="https://www.charlessoft.com/">Pacifist</a> is otherwise a good tool to look in *.pkg files. Check in info.plist for “CFBundleIdentifier” and “CFBundleShortVersionString” </p><p>I change TAG Identifier to com.google.Chrome and version 120.0.6099.216</p><ol start="4">
+<li>Mark Applications and click Set 
+<figure class="post__image"><img loading="lazy" src="https://novumus.github.io/nylle/media/posts/4/Packages-4.png" alt="Image description" width="1195" height="636" sizes="(max-width: 1920px) 100vw, 1920px" srcset="https://novumus.github.io/nylle/media/posts/4/responsive/Packages-4-xs.png 640w ,https://novumus.github.io/nylle/media/posts/4/responsive/Packages-4-sm.png 768w ,https://novumus.github.io/nylle/media/posts/4/responsive/Packages-4-md.png 1024w ,https://novumus.github.io/nylle/media/posts/4/responsive/Packages-4-lg.png 1366w ,https://novumus.github.io/nylle/media/posts/4/responsive/Packages-4-xl.png 1600w ,https://novumus.github.io/nylle/media/posts/4/responsive/Packages-4-2xl.png 1920w"></figure></li>
+</ol>
+<p>Create postinstall file</p><ol start="5">
+<li>Open TextEdit and create a Plain Text file.</li>
+</ol>
+<p>Paste the script below and save as postinstall and close TextEdit.</p><p>Scripted looks like this:</p><pre><code>!/bin/bash
+
+# Chrome Installer script
+
+# define the log file
+log_file=&quot;/library/logs/GoogleChrome_install.log&quot;
+echo &quot;Installing Rapid 7&quot; | tee -a &quot;$log_file&quot;
+
+# Determine working directory (dirname $0 = Script path, working directory)
+
+install_dir=dirname $0
+echo &quot;working directory set to $install_dir&quot; | tee -a &quot;$log_file&quot;
+
+# Installer command ($3 = Target volume) (dumplog = /var/log/install.log)
+
+/usr/sbin/installer -dumplog -verbose -pkg &quot;$install_dir/GoogleChrome.pkg&quot; -target &quot;$3&quot;
+echo “ installation started of Google Chrome” | tee -a &quot;$log_file&quot;
+</code></pre>
+<ol start="6">
+<li><p>Find your created postinstall file and remove the filetype txt from the file. Secondary click ang get info on the file. 
+<figure class="post__image"><img loading="lazy" src="https://novumus.github.io/nylle/media/posts/4/Packages-5.png" alt="Image description" width="255" height="229" sizes="(max-width: 1920px) 100vw, 1920px" srcset="https://novumus.github.io/nylle/media/posts/4/responsive/Packages-5-xs.png 640w ,https://novumus.github.io/nylle/media/posts/4/responsive/Packages-5-sm.png 768w ,https://novumus.github.io/nylle/media/posts/4/responsive/Packages-5-md.png 1024w ,https://novumus.github.io/nylle/media/posts/4/responsive/Packages-5-lg.png 1366w ,https://novumus.github.io/nylle/media/posts/4/responsive/Packages-5-xl.png 1600w ,https://novumus.github.io/nylle/media/posts/4/responsive/Packages-5-2xl.png 1920w"></figure></p></li>
+<li><p>Open Terminal and type</p></li>
+</ol>
+<p> </p><pre><code>sudo chmod a+x /path/to/your/postinstall
+</code></pre>
+<p>The postinstall shall now have become an black icon with green text
+<figure class="post__image"><img loading="lazy" src="https://novumus.github.io/nylle/media/posts/4/Packages-6.png" alt="Image description" width="87" height="97" sizes="(max-width: 1920px) 100vw, 1920px" srcset="https://novumus.github.io/nylle/media/posts/4/responsive/Packages-6-xs.png 640w ,https://novumus.github.io/nylle/media/posts/4/responsive/Packages-6-sm.png 768w ,https://novumus.github.io/nylle/media/posts/4/responsive/Packages-6-md.png 1024w ,https://novumus.github.io/nylle/media/posts/4/responsive/Packages-6-lg.png 1366w ,https://novumus.github.io/nylle/media/posts/4/responsive/Packages-6-xl.png 1600w ,https://novumus.github.io/nylle/media/posts/4/responsive/Packages-6-2xl.png 1920w"></figure></p><p>Go back to Packages and add the files. </p><ol start="8">
+<li><p>Add postinstall to Post-Installation and under Additional Resources click the plus sign and add GoogleChrome.pkg and default.conf
+<figure class="post__image"><img loading="lazy" src="https://novumus.github.io/nylle/media/posts/4/Packages-7.png" alt="Image description" width="1191" height="633" sizes="(max-width: 1920px) 100vw, 1920px" srcset="https://novumus.github.io/nylle/media/posts/4/responsive/Packages-7-xs.png 640w ,https://novumus.github.io/nylle/media/posts/4/responsive/Packages-7-sm.png 768w ,https://novumus.github.io/nylle/media/posts/4/responsive/Packages-7-md.png 1024w ,https://novumus.github.io/nylle/media/posts/4/responsive/Packages-7-lg.png 1366w ,https://novumus.github.io/nylle/media/posts/4/responsive/Packages-7-xl.png 1600w ,https://novumus.github.io/nylle/media/posts/4/responsive/Packages-7-2xl.png 1920w"></figure></p></li>
+<li><p>Now let’s build the package in Packages. 
+<figure class="post__image"><img loading="lazy" src="https://novumus.github.io/nylle/media/posts/4/Packages-8.png" alt="Image description" width="1110" height="734" sizes="(max-width: 1920px) 100vw, 1920px" srcset="https://novumus.github.io/nylle/media/posts/4/responsive/Packages-8-xs.png 640w ,https://novumus.github.io/nylle/media/posts/4/responsive/Packages-8-sm.png 768w ,https://novumus.github.io/nylle/media/posts/4/responsive/Packages-8-md.png 1024w ,https://novumus.github.io/nylle/media/posts/4/responsive/Packages-8-lg.png 1366w ,https://novumus.github.io/nylle/media/posts/4/responsive/Packages-8-xl.png 1600w ,https://novumus.github.io/nylle/media/posts/4/responsive/Packages-8-2xl.png 1920w"></figure></p></li>
+</ol>
+<p>Done! Try to install it and see if it’s work! </p><h3 id="second-example-on-how-to-use-packages">Second example on how to use Packages</h3>
+<p>So in this example we have a DMG file and we want make an pkg package of instead. This why you do not have to be limited on how some MDMs handling DMG files. Also this is just a tip and will not be included in the guide but if the application have a license key file that could be included and copied using postinstall similar to explained above. </p><p><strong>Requirement</strong> </p><ul>
+<li>Packages installed on your Mac computer</li>
+<li>DMG file (GoogleChrome.dmg is used here to demonstrate)</li>
+</ul>
+<ol>
+<li><p>Open Packages and create a Distribution package, click Next
+<figure class="post__image"><img loading="lazy" src="https://novumus.github.io/nylle/media/posts/4/Packages-app.png" alt="Image description" width="1426" height="1004" sizes="(max-width: 1920px) 100vw, 1920px" srcset="https://novumus.github.io/nylle/media/posts/4/responsive/Packages-app-xs.png 640w ,https://novumus.github.io/nylle/media/posts/4/responsive/Packages-app-sm.png 768w ,https://novumus.github.io/nylle/media/posts/4/responsive/Packages-app-md.png 1024w ,https://novumus.github.io/nylle/media/posts/4/responsive/Packages-app-lg.png 1366w ,https://novumus.github.io/nylle/media/posts/4/responsive/Packages-app-xl.png 1600w ,https://novumus.github.io/nylle/media/posts/4/responsive/Packages-app-2xl.png 1920w"></figure></p></li>
+<li><p>Give it a Project Name: Google Chrome and Click: Create
+<figure class="post__image"><img loading="lazy" src="https://novumus.github.io/nylle/media/posts/4/Packages-app-1.png" alt="Image description" width="1514" height="1092" sizes="(max-width: 1920px) 100vw, 1920px" srcset="https://novumus.github.io/nylle/media/posts/4/responsive/Packages-app-1-xs.png 640w ,https://novumus.github.io/nylle/media/posts/4/responsive/Packages-app-1-sm.png 768w ,https://novumus.github.io/nylle/media/posts/4/responsive/Packages-app-1-md.png 1024w ,https://novumus.github.io/nylle/media/posts/4/responsive/Packages-app-1-lg.png 1366w ,https://novumus.github.io/nylle/media/posts/4/responsive/Packages-app-1-xl.png 1600w ,https://novumus.github.io/nylle/media/posts/4/responsive/Packages-app-1-2xl.png 1920w"></figure></p></li>
+<li><p>Just look through the Project tabs.<br><figure class="post__image"><img loading="lazy" src="https://novumus.github.io/nylle/media/posts/4/Packages-app-2.png" alt="Image description" width="2048" height="1175" sizes="(max-width: 1920px) 100vw, 1920px" srcset="https://novumus.github.io/nylle/media/posts/4/responsive/Packages-app-2-xs.png 640w ,https://novumus.github.io/nylle/media/posts/4/responsive/Packages-app-2-sm.png 768w ,https://novumus.github.io/nylle/media/posts/4/responsive/Packages-app-2-md.png 1024w ,https://novumus.github.io/nylle/media/posts/4/responsive/Packages-app-2-lg.png 1366w ,https://novumus.github.io/nylle/media/posts/4/responsive/Packages-app-2-xl.png 1600w ,https://novumus.github.io/nylle/media/posts/4/responsive/Packages-app-2-2xl.png 1920w"></figure></p></li>
+<li><p>Click the Packages Google Chrome<br><figure class="post__image"><img loading="lazy" src="https://novumus.github.io/nylle/media/posts/4/Packages-app-3.png" alt="Image description" width="2048" height="1175" sizes="(max-width: 1920px) 100vw, 1920px" srcset="https://novumus.github.io/nylle/media/posts/4/responsive/Packages-app-3-xs.png 640w ,https://novumus.github.io/nylle/media/posts/4/responsive/Packages-app-3-sm.png 768w ,https://novumus.github.io/nylle/media/posts/4/responsive/Packages-app-3-md.png 1024w ,https://novumus.github.io/nylle/media/posts/4/responsive/Packages-app-3-lg.png 1366w ,https://novumus.github.io/nylle/media/posts/4/responsive/Packages-app-3-xl.png 1600w ,https://novumus.github.io/nylle/media/posts/4/responsive/Packages-app-3-2xl.png 1920w"></figure></p></li>
+<li><p>Let’s change the TAG Identifier and Version to the Google Chrome that we have downloaded.
+<figure class="post__image"><img loading="lazy" src="https://novumus.github.io/nylle/media/posts/4/Packages-app-4.png" alt="Image description" width="780" height="224" sizes="(max-width: 1920px) 100vw, 1920px" srcset="https://novumus.github.io/nylle/media/posts/4/responsive/Packages-app-4-xs.png 640w ,https://novumus.github.io/nylle/media/posts/4/responsive/Packages-app-4-sm.png 768w ,https://novumus.github.io/nylle/media/posts/4/responsive/Packages-app-4-md.png 1024w ,https://novumus.github.io/nylle/media/posts/4/responsive/Packages-app-4-lg.png 1366w ,https://novumus.github.io/nylle/media/posts/4/responsive/Packages-app-4-xl.png 1600w ,https://novumus.github.io/nylle/media/posts/4/responsive/Packages-app-4-2xl.png 1920w"></figure></p></li>
+<li><p>Open the Google Chrome DMG file and a Windows shall open looking like this.
+<figure class="post__image"><img loading="lazy" src="https://novumus.github.io/nylle/media/posts/4/Packages-app-5.png" alt="Image description" width="1184" height="1404" sizes="(max-width: 1920px) 100vw, 1920px" srcset="https://novumus.github.io/nylle/media/posts/4/responsive/Packages-app-5-xs.png 640w ,https://novumus.github.io/nylle/media/posts/4/responsive/Packages-app-5-sm.png 768w ,https://novumus.github.io/nylle/media/posts/4/responsive/Packages-app-5-md.png 1024w ,https://novumus.github.io/nylle/media/posts/4/responsive/Packages-app-5-lg.png 1366w ,https://novumus.github.io/nylle/media/posts/4/responsive/Packages-app-5-xl.png 1600w ,https://novumus.github.io/nylle/media/posts/4/responsive/Packages-app-5-2xl.png 1920w"></figure></p></li>
+<li><p>Secondary click (Right click) and click on Show Package Contents
+<figure class="post__image"><img loading="lazy" src="https://novumus.github.io/nylle/media/posts/4/Packages-app-6.png" alt="Image description" width="790" height="924" sizes="(max-width: 1920px) 100vw, 1920px" srcset="https://novumus.github.io/nylle/media/posts/4/responsive/Packages-app-6-xs.png 640w ,https://novumus.github.io/nylle/media/posts/4/responsive/Packages-app-6-sm.png 768w ,https://novumus.github.io/nylle/media/posts/4/responsive/Packages-app-6-md.png 1024w ,https://novumus.github.io/nylle/media/posts/4/responsive/Packages-app-6-lg.png 1366w ,https://novumus.github.io/nylle/media/posts/4/responsive/Packages-app-6-xl.png 1600w ,https://novumus.github.io/nylle/media/posts/4/responsive/Packages-app-6-2xl.png 1920w"></figure></p></li>
+<li><p>Navigate to info.plist and open it in a text editor
+<figure class="post__image"><img loading="lazy" src="https://novumus.github.io/nylle/media/posts/4/Packages-app-7.png" alt="Image description" width="1700" height="1060" sizes="(max-width: 1920px) 100vw, 1920px" srcset="https://novumus.github.io/nylle/media/posts/4/responsive/Packages-app-7-xs.png 640w ,https://novumus.github.io/nylle/media/posts/4/responsive/Packages-app-7-sm.png 768w ,https://novumus.github.io/nylle/media/posts/4/responsive/Packages-app-7-md.png 1024w ,https://novumus.github.io/nylle/media/posts/4/responsive/Packages-app-7-lg.png 1366w ,https://novumus.github.io/nylle/media/posts/4/responsive/Packages-app-7-xl.png 1600w ,https://novumus.github.io/nylle/media/posts/4/responsive/Packages-app-7-2xl.png 1920w"></figure></p></li>
+<li><p>Search of find “CFBundleIdentifier” and “CFBundleShortVersionString” and copy the string value.
+<figure class="post__image"><img loading="lazy" src="https://novumus.github.io/nylle/media/posts/4/Packages-app-8.png" alt="Image description" width="1516" height="1060" sizes="(max-width: 1920px) 100vw, 1920px" srcset="https://novumus.github.io/nylle/media/posts/4/responsive/Packages-app-8-xs.png 640w ,https://novumus.github.io/nylle/media/posts/4/responsive/Packages-app-8-sm.png 768w ,https://novumus.github.io/nylle/media/posts/4/responsive/Packages-app-8-md.png 1024w ,https://novumus.github.io/nylle/media/posts/4/responsive/Packages-app-8-lg.png 1366w ,https://novumus.github.io/nylle/media/posts/4/responsive/Packages-app-8-xl.png 1600w ,https://novumus.github.io/nylle/media/posts/4/responsive/Packages-app-8-2xl.png 1920w"></figure></p></li>
+<li><p>Add that as TAG Identifier and version
+<figure class="post__image"><img loading="lazy" src="https://novumus.github.io/nylle/media/posts/4/Packages-app-9.png" alt="Image description" width="2048" height="1175" sizes="(max-width: 1920px) 100vw, 1920px" srcset="https://novumus.github.io/nylle/media/posts/4/responsive/Packages-app-9-xs.png 640w ,https://novumus.github.io/nylle/media/posts/4/responsive/Packages-app-9-sm.png 768w ,https://novumus.github.io/nylle/media/posts/4/responsive/Packages-app-9-md.png 1024w ,https://novumus.github.io/nylle/media/posts/4/responsive/Packages-app-9-lg.png 1366w ,https://novumus.github.io/nylle/media/posts/4/responsive/Packages-app-9-xl.png 1600w ,https://novumus.github.io/nylle/media/posts/4/responsive/Packages-app-9-2xl.png 1920w"></figure></p></li>
+<li><p>Goto Tab Payload
+<figure class="post__image"><img loading="lazy" src="https://novumus.github.io/nylle/media/posts/4/Packages-app-10.png" alt="Image description" width="2048" height="1175" sizes="(max-width: 1920px) 100vw, 1920px" srcset="https://novumus.github.io/nylle/media/posts/4/responsive/Packages-app-10-xs.png 640w ,https://novumus.github.io/nylle/media/posts/4/responsive/Packages-app-10-sm.png 768w ,https://novumus.github.io/nylle/media/posts/4/responsive/Packages-app-10-md.png 1024w ,https://novumus.github.io/nylle/media/posts/4/responsive/Packages-app-10-lg.png 1366w ,https://novumus.github.io/nylle/media/posts/4/responsive/Packages-app-10-xl.png 1600w ,https://novumus.github.io/nylle/media/posts/4/responsive/Packages-app-10-2xl.png 1920w"></figure></p></li>
+<li><p>Click Applications folder and click on Set
+<figure class="post__image"><img loading="lazy" src="https://novumus.github.io/nylle/media/posts/4/Packages-app-11.png" alt="Image description" width="2048" height="1175" sizes="(max-width: 1920px) 100vw, 1920px" srcset="https://novumus.github.io/nylle/media/posts/4/responsive/Packages-app-11-xs.png 640w ,https://novumus.github.io/nylle/media/posts/4/responsive/Packages-app-11-sm.png 768w ,https://novumus.github.io/nylle/media/posts/4/responsive/Packages-app-11-md.png 1024w ,https://novumus.github.io/nylle/media/posts/4/responsive/Packages-app-11-lg.png 1366w ,https://novumus.github.io/nylle/media/posts/4/responsive/Packages-app-11-xl.png 1600w ,https://novumus.github.io/nylle/media/posts/4/responsive/Packages-app-11-2xl.png 1920w"></figure></p></li>
+<li><p>Click the + sign
+<figure class="post__image"><img loading="lazy" src="https://novumus.github.io/nylle/media/posts/4/Packages-app-12.png" alt="Image description" width="2048" height="1175" sizes="(max-width: 1920px) 100vw, 1920px" srcset="https://novumus.github.io/nylle/media/posts/4/responsive/Packages-app-12-xs.png 640w ,https://novumus.github.io/nylle/media/posts/4/responsive/Packages-app-12-sm.png 768w ,https://novumus.github.io/nylle/media/posts/4/responsive/Packages-app-12-md.png 1024w ,https://novumus.github.io/nylle/media/posts/4/responsive/Packages-app-12-lg.png 1366w ,https://novumus.github.io/nylle/media/posts/4/responsive/Packages-app-12-xl.png 1600w ,https://novumus.github.io/nylle/media/posts/4/responsive/Packages-app-12-2xl.png 1920w"></figure></p></li>
+</ol>
+<p>14, Click on the disk image for Google Chrome and choose the App file.
+<figure class="post__image"><img loading="lazy" src="https://novumus.github.io/nylle/media/posts/4/Packages-app-13-2.png" alt="Image description" width="2048" height="975" sizes="(max-width: 1920px) 100vw, 1920px" srcset="https://novumus.github.io/nylle/media/posts/4/responsive/Packages-app-13-2-xs.png 640w ,https://novumus.github.io/nylle/media/posts/4/responsive/Packages-app-13-2-sm.png 768w ,https://novumus.github.io/nylle/media/posts/4/responsive/Packages-app-13-2-md.png 1024w ,https://novumus.github.io/nylle/media/posts/4/responsive/Packages-app-13-2-lg.png 1366w ,https://novumus.github.io/nylle/media/posts/4/responsive/Packages-app-13-2-xl.png 1600w ,https://novumus.github.io/nylle/media/posts/4/responsive/Packages-app-13-2-2xl.png 1920w"></figure>
+<figure class="post__image"><img loading="lazy" src="https://novumus.github.io/nylle/media/posts/4/Packages-app-14-2.png" alt="Image description" width="2048" height="1175" sizes="(max-width: 1920px) 100vw, 1920px" srcset="https://novumus.github.io/nylle/media/posts/4/responsive/Packages-app-14-2-xs.png 640w ,https://novumus.github.io/nylle/media/posts/4/responsive/Packages-app-14-2-sm.png 768w ,https://novumus.github.io/nylle/media/posts/4/responsive/Packages-app-14-2-md.png 1024w ,https://novumus.github.io/nylle/media/posts/4/responsive/Packages-app-14-2-lg.png 1366w ,https://novumus.github.io/nylle/media/posts/4/responsive/Packages-app-14-2-xl.png 1600w ,https://novumus.github.io/nylle/media/posts/4/responsive/Packages-app-14-2-2xl.png 1920w"></figure></p><blockquote>
+<p><em>Now Google Chrome.app is added to the project (note, do not close the Disk Image before you done with creating the package. Because then Packages will not find the app file)</em>  </p></blockquote>
+<p><em>If you close the DMG image file it will look like this in red text.</em>
+<figure class="post__image"><img loading="lazy" src="https://novumus.github.io/nylle/media/posts/4/Packages-app-15.png" alt="Image description" width="2048" height="1175" sizes="(max-width: 1920px) 100vw, 1920px" srcset="https://novumus.github.io/nylle/media/posts/4/responsive/Packages-app-15-xs.png 640w ,https://novumus.github.io/nylle/media/posts/4/responsive/Packages-app-15-sm.png 768w ,https://novumus.github.io/nylle/media/posts/4/responsive/Packages-app-15-md.png 1024w ,https://novumus.github.io/nylle/media/posts/4/responsive/Packages-app-15-lg.png 1366w ,https://novumus.github.io/nylle/media/posts/4/responsive/Packages-app-15-xl.png 1600w ,https://novumus.github.io/nylle/media/posts/4/responsive/Packages-app-15-2xl.png 1920w"></figure></p><ol start="15">
+<li>Packages menu Build, choose Build
+<figure class="post__image"><img loading="lazy" src="https://novumus.github.io/nylle/media/posts/4/Packages-app-16.png" alt="Image description" width="1008" height="220" sizes="(max-width: 1920px) 100vw, 1920px" srcset="https://novumus.github.io/nylle/media/posts/4/responsive/Packages-app-16-xs.png 640w ,https://novumus.github.io/nylle/media/posts/4/responsive/Packages-app-16-sm.png 768w ,https://novumus.github.io/nylle/media/posts/4/responsive/Packages-app-16-md.png 1024w ,https://novumus.github.io/nylle/media/posts/4/responsive/Packages-app-16-lg.png 1366w ,https://novumus.github.io/nylle/media/posts/4/responsive/Packages-app-16-xl.png 1600w ,https://novumus.github.io/nylle/media/posts/4/responsive/Packages-app-16-2xl.png 1920w"></figure></li>
+</ol>
+<p><em>Haven’t you saved your project its a good time to do so now.</em><br><em>Packes will build and hopefully it is a Build Success</em></p><ol start="16">
+<li>Try to install the pack and see if it’s working.</li>
+</ol>
+<p>Note! If you wanna sign the pkg, there is a guide for that [[1. Sign MacOS .pkg files]]</p>
+            ]]>
+        </content>
+    </entry>
+    <entry>
+        <title>Flac player on iOS</title>
+        <author>
+            <name>nylle</name>
+        </author>
+        <link href="https://novumus.github.io/nylle/blog/flac-player-on-ios/"/>
+        <id>https://novumus.github.io/nylle/blog/flac-player-on-ios/</id>
+        <media:content url="https://novumus.github.io/nylle/media/posts/3/cover_flac_header_top_1000px.jpg" medium="image" />
+            <category term="review"/>
+            <category term="music"/>
+            <category term="iOS"/>
+            <category term="flacbox"/>
+            <category term="flac"/>
+            <category term="evermusic"/>
+            <category term="doppler"/>
+
+        <updated>2024-01-05T16:07:00+01:00</updated>
+            <summary>
+                <![CDATA[
+                        <img src="https://novumus.github.io/nylle/media/posts/3/cover_flac_header_top_1000px.jpg" alt="" />
+                    If you are an avid music enthusiast who appreciates high-quality audio, having a FLAC player for iOS becomes an essential tool to enhance the listening experience. Or course you can just upload the Flac file to iCloud and open Files and click on the file&hellip;
+                ]]>
+            </summary>
+        <content type="html">
+            <![CDATA[
+                    <p><img src="https://novumus.github.io/nylle/media/posts/3/cover_flac_header_top_1000px.jpg" class="type:primaryImage" alt="" /></p>
+                <p><strong>If you are an avid music enthusiast who appreciates high-quality audio, having a FLAC player for iOS becomes an essential tool to enhance the listening experience. Or course you can just upload the Flac file to iCloud and open Files and click on the file and it start playing. But the experience is horrible. So what alternative are there out there? Let’s find an app that looks good and are easy to use.</strong>  </p><p>Requirement for a Flac player</p><ul>
+<li>Play Flac format :) (ability to decode and play FLAC files seamlessly)</li>
+<li>A fast and nice GUI with some functions</li>
+<li>Cloud reachabillity</li>
+<li>ID3 editor</li>
+<li>Free or one-time purchase</li>
+</ul>
+<p>One of the key features of a FLAC player for iOS is its ability to decode and play FLAC files seamlessly, ensuring that users can experience the full richness and detail of their high-fidelity audio tracks.</p><p>Additionally, a good FLAC player for iOS must have an intuitive and user-friendly interface, making it easy to navigate through music libraries, create playlists, and customize the listening experience.</p><p>As iOS devices have limited storage capacity, a FLAC player for iOS may also integrate with cloud storage services, enabling to stream or fetch the FLAC files without taking up too much space on their devices.</p><p>ID3 is a metadata format used to store information about a music file, typically in audio files like MP3. The purpose of ID3 tags is to embed descriptive information about the audio file within the file itself. This metadata can include details such as the title of the track, the artist, album, genre, track number, and release year, among other things. So this must work within the player.</p><p>So found three that looks promising that said they would have the requirements.</p><ul>
+<li>Flacbox</li>
+<li>Evermusic</li>
+<li>Doppler</li>
+</ul>
+<h2 id="flacbox"><a href="https://www.everappz.com/flacbox" title="Flacbox">Flacbox</a></h2>
+<p>First experience when trying the app
+<figure class="post__image"><img loading="lazy" src="https://novumus.github.io/nylle/media/posts/3/flacbox1.jpg" alt="Image description" width="300" height="617" sizes="(max-width: 1920px) 100vw, 1920px" srcset="https://novumus.github.io/nylle/media/posts/3/responsive/flacbox1-xs.jpg 640w ,https://novumus.github.io/nylle/media/posts/3/responsive/flacbox1-sm.jpg 768w ,https://novumus.github.io/nylle/media/posts/3/responsive/flacbox1-md.jpg 1024w ,https://novumus.github.io/nylle/media/posts/3/responsive/flacbox1-lg.jpg 1366w ,https://novumus.github.io/nylle/media/posts/3/responsive/flacbox1-xl.jpg 1600w ,https://novumus.github.io/nylle/media/posts/3/responsive/flacbox1-2xl.jpg 1920w"></figure></p><p>Browsing through the app and find “Connect a cloud service”. Really good selections of cloud services that app can connect to. Try iCloud Drive and select the folder with Flac music. Directly there is the possibility to stream the music from iCloud, that is really good.</p><p>Going back to Music Library within the app and see if there is any music. Nothing there… OK but there is an Add music at the bottom on the app in the Music Library. Click it and then choose the cloud service and select the music in iCloud. Choosing all the albums. Loading… Ok the Music Library is starting to get populated. Nice! :)</p><p>Checking settings within the app and see that there are some settings we can change about the Online/Offline/Metadata synchronizations. Synchronization is running and that is good.</p><p>Going back to Music Library and see that some of the albums has the wrong metadata, how to change that? Hold an individual track there is “Edit audio tags”. So can edit the individual tracks but how do to change a whole album? Can change the album cover so maybe that is all?
+<figure class="post__image"><img loading="lazy" src="https://novumus.github.io/nylle/media/posts/3/flacbox2.jpg" alt="Image description" width="300" height="613" sizes="(max-width: 1920px) 100vw, 1920px" srcset="https://novumus.github.io/nylle/media/posts/3/responsive/flacbox2-xs.jpg 640w ,https://novumus.github.io/nylle/media/posts/3/responsive/flacbox2-sm.jpg 768w ,https://novumus.github.io/nylle/media/posts/3/responsive/flacbox2-md.jpg 1024w ,https://novumus.github.io/nylle/media/posts/3/responsive/flacbox2-lg.jpg 1366w ,https://novumus.github.io/nylle/media/posts/3/responsive/flacbox2-xl.jpg 1600w ,https://novumus.github.io/nylle/media/posts/3/responsive/flacbox2-2xl.jpg 1920w"></figure></p><p>Going back to Metadata synchronizations and it is done. That was pretty fast!</p><p>Adding some more folders to the cloud service and the going back to Music Library and add that new folder. This is a bit complicated. Loading… Metadata synchronizations has started again. Saw here that it didn’t go through all files, 243 out of 271, also there are som albums missing in Music Library. Tried to start it manually but it just stopped directly and after a few hours it found some more albums but still not all.</p><p>Trying to create a playlist, not an problem, as easy as it should be.</p><p>Offline listening, again within the Media Library there are only the option to download individual tracks, not an whole album. Under Connection there is the ability to choose the folder within iCloud and “Enable offline Mode”. Is that it? Where do I find the downloaded files? Flight Mode enabled on the phone and none of the files in Music Library could be played like it should be since they are being streamed from iCloud. Under Local Files the files can be played. Disabled Flight Mode and tried to play a song from Music Library, worked again, good. Check under Local Files again and try to play a song there, no problem.</p><p>The look of the app when added some albums after you click into Music Library / Albums
+<figure class="post__image"><img loading="lazy" src="https://novumus.github.io/nylle/media/posts/3/flacbox3.jpg" alt="Image description" width="300" height="616" sizes="(max-width: 1920px) 100vw, 1920px" srcset="https://novumus.github.io/nylle/media/posts/3/responsive/flacbox3-xs.jpg 640w ,https://novumus.github.io/nylle/media/posts/3/responsive/flacbox3-sm.jpg 768w ,https://novumus.github.io/nylle/media/posts/3/responsive/flacbox3-md.jpg 1024w ,https://novumus.github.io/nylle/media/posts/3/responsive/flacbox3-lg.jpg 1366w ,https://novumus.github.io/nylle/media/posts/3/responsive/flacbox3-xl.jpg 1600w ,https://novumus.github.io/nylle/media/posts/3/responsive/flacbox3-2xl.jpg 1920w"></figure></p><h3 id="sum-it-up-for-flacbox">Sum it up for Flacbox:</h3>
+<p>Play Flac: Yes with possibility to chose codec<br>Fast nice GUI: looks a little outdated but the GUI is rapid but slow metadata synchronizations<br>Cloud reachability: Yes with the possibility to stream<br>ID3 Editor: Yes<br>Free or On-Time purchase: Yes</p><p> <em><strong>Complicated way to add music, meta data is not always synchronized. Can’t edit entire albums. Offline listening is on another tab. The app is not that good looking even though there are some Personalization that can be made. The best feature is that you can stream the music from your cloud service.</strong></em></p><h2 id="evermusic"><a href="https://www.everappz.com/evermusic" title="Evermusic">Evermusic</a></h2>
+<p>Started to try this app but saw that it the same app more or less as Flacbox… The company that made Flacbox is the same that made this app. The difference of the apps can be read here: <a href="https://www.everappz.com/post/what-is-the-difference-between-evermusic-and-flacbox" title="What is the difference between evermusic and flacbox">What is the difference between evermusic and flacbox</a></p><h2 id="doppler"><a href="https://brushedtype.co/doppler/" title="Doppler">Doppler</a></h2>
+<h3 id="first-experience-when-trying-the-app">First experience when trying the app</h3>
+<p>7 days trial of the app, that is nice. The we can really try the app, do not understand why everyone isn’t doing this. The app looks really nice at first start, much better than the screenshots in App Store.</p><p>Cloud reachabillity is there first thing to check. OK, there is only the possibility to Import files to the app meaning that it will take up storage on the phone. When Importing from Cloud Services there is no scan option, need to go in through all the folders and mark a file and then click Select all files. But that will only select the file for that album. So this is need to be done for all the albums that is going to be imported. A little annoying that there is no option to scan a folder and its subfolder for music. Not that good.
+<figure class="post__image"><img loading="lazy" src="https://novumus.github.io/nylle/media/posts/3/doppler1.jpg" alt="Image description" width="300" height="611" sizes="(max-width: 1920px) 100vw, 1920px" srcset="https://novumus.github.io/nylle/media/posts/3/responsive/doppler1-xs.jpg 640w ,https://novumus.github.io/nylle/media/posts/3/responsive/doppler1-sm.jpg 768w ,https://novumus.github.io/nylle/media/posts/3/responsive/doppler1-md.jpg 1024w ,https://novumus.github.io/nylle/media/posts/3/responsive/doppler1-lg.jpg 1366w ,https://novumus.github.io/nylle/media/posts/3/responsive/doppler1-xl.jpg 1600w ,https://novumus.github.io/nylle/media/posts/3/responsive/doppler1-2xl.jpg 1920w"></figure></p><p>Album Imported and the cover is missing, Edit Album info… and it can be added and it was self-explanatory. This feature is good.
+<figure class="post__image"><img loading="lazy" src="https://novumus.github.io/nylle/media/posts/3/doppler2.jpg" alt="Image description" width="300" height="619" sizes="(max-width: 1920px) 100vw, 1920px" srcset="https://novumus.github.io/nylle/media/posts/3/responsive/doppler2-xs.jpg 640w ,https://novumus.github.io/nylle/media/posts/3/responsive/doppler2-sm.jpg 768w ,https://novumus.github.io/nylle/media/posts/3/responsive/doppler2-md.jpg 1024w ,https://novumus.github.io/nylle/media/posts/3/responsive/doppler2-lg.jpg 1366w ,https://novumus.github.io/nylle/media/posts/3/responsive/doppler2-xl.jpg 1600w ,https://novumus.github.io/nylle/media/posts/3/responsive/doppler2-2xl.jpg 1920w"></figure></p><p>So now under Library section we see the album under Recently added and under Albums and Artists.</p><p>Try to create a Playlist! Press the + sign and name it something. Here again we need to click each individual + sign to add an album to the playlist. But there is a better way to add whole album, just go in to the album and click the three dots and choose Add to Playlist… This is good!</p><p>The look of the app when added some albums
+<figure class="post__image"><img loading="lazy" src="https://novumus.github.io/nylle/media/posts/3/doppler3.jpg" alt="Image description" width="300" height="585" sizes="(max-width: 1920px) 100vw, 1920px" srcset="https://novumus.github.io/nylle/media/posts/3/responsive/doppler3-xs.jpg 640w ,https://novumus.github.io/nylle/media/posts/3/responsive/doppler3-sm.jpg 768w ,https://novumus.github.io/nylle/media/posts/3/responsive/doppler3-md.jpg 1024w ,https://novumus.github.io/nylle/media/posts/3/responsive/doppler3-lg.jpg 1366w ,https://novumus.github.io/nylle/media/posts/3/responsive/doppler3-xl.jpg 1600w ,https://novumus.github.io/nylle/media/posts/3/responsive/doppler3-2xl.jpg 1920w"></figure></p><h3 id="sum-it-up-for-doppler">Sum it up for Doppler:</h3>
+<p>Play Flac: Yes<br>Fast nice GUI: Yes<br>Cloud reachability: Yes<br>ID3 Editor: Yes<br>Free or On-Time purchase: Yes and cheaper than Flacbox/Evermusic</p><p><strong>No why to stream the music, a little annoying to add new music since there is no option to scan folders. The app is responsive and fast and really easy and nice to use.</strong></p><h2 id="overall-winner-doppler"><strong>Overall winner: Doppler</strong></h2>
+
+            ]]>
+        </content>
+    </entry>
+    <entry>
+        <title>Allow System Extensions on macOS using mobileconfig</title>
+        <author>
+            <name>nylle</name>
+        </author>
+        <link href="https://novumus.github.io/nylle/blog/allow-system-extensions-on-macos-using-mobileconfig/"/>
+        <id>https://novumus.github.io/nylle/blog/allow-system-extensions-on-macos-using-mobileconfig/</id>
+        <media:content url="https://novumus.github.io/nylle/media/posts/2/cover_sys_feature_image_top_1000px.jpg" medium="image" />
+            <category term="tech"/>
+            <category term="systemextensions"/>
+            <category term="plist"/>
+            <category term="mobileconfig"/>
+            <category term="macOS"/>
+            <category term="iMazing"/>
+
+        <updated>2023-09-23T09:17:00+02:00</updated>
+            <summary>
+                <![CDATA[
+                        <img src="https://novumus.github.io/nylle/media/posts/2/cover_sys_feature_image_top_1000px.jpg" alt="" />
+                    We have a package to be distributed from your MDM and during the installation the users have to click Allow on System Extension. So how to allow System Extensions on macOS using MDM and a mobileconfig file? Tools used In the example below, we have&hellip;
+                ]]>
+            </summary>
+        <content type="html">
+            <![CDATA[
+                    <p><img src="https://novumus.github.io/nylle/media/posts/2/cover_sys_feature_image_top_1000px.jpg" class="type:primaryImage" alt="" /></p>
+                <p>We have a package to be distributed from your MDM and during the installation the users have to click Allow on System Extension. So how to allow System Extensions on macOS using MDM and a mobileconfig file?</p><p><strong>Tools used</strong></p><ul>
+<li>iMazing Profile Editor (Available for download in the macOS app store)</li>
+<li>Terminal kommando; systemextensionsctl</li>
+</ul>
+<h2 id="first-need-to-find-out-the-apple-team-id-and-bundle-id">First need to find out the Apple Team ID and Bundle ID.</h2>
+<blockquote>
+<p>In the example below, we have used an imaginary:<br>Team ID: B23J89K123</p><p>Bundle ID: com.blabla.tset &amp; com.blabla.tset.systset</p></blockquote>
+<p>Open the terminal and type: systemextensionsctl list</p><p>As we see in the picture, there is only 1 extension installed on the computer right now.  <figure class="post__image"><img loading="lazy" src="https://novumus.github.io/nylle/media/posts/2/terminalsystemextesions-2.png" alt="Image description" width="568" height="103" sizes="(max-width: 1920px) 100vw, 1920px" srcset="https://novumus.github.io/nylle/media/posts/2/responsive/terminalsystemextesions-2-xs.png 640w ,https://novumus.github.io/nylle/media/posts/2/responsive/terminalsystemextesions-2-sm.png 768w ,https://novumus.github.io/nylle/media/posts/2/responsive/terminalsystemextesions-2-md.png 1024w ,https://novumus.github.io/nylle/media/posts/2/responsive/terminalsystemextesions-2-lg.png 1366w ,https://novumus.github.io/nylle/media/posts/2/responsive/terminalsystemextesions-2-xl.png 1600w ,https://novumus.github.io/nylle/media/posts/2/responsive/terminalsystemextesions-2-2xl.png 1920w"></figure>
+You can also check under /Library/SystemExtensions and there should only be a folder with lots of letters and numbers.
+<figure class="post__image"><img loading="lazy" src="https://novumus.github.io/nylle/media/posts/2/finder_systemextesions.png" alt="Image description" width="367" height="284" sizes="(max-width: 1920px) 100vw, 1920px" srcset="https://novumus.github.io/nylle/media/posts/2/responsive/finder_systemextesions-xs.png 640w ,https://novumus.github.io/nylle/media/posts/2/responsive/finder_systemextesions-sm.png 768w ,https://novumus.github.io/nylle/media/posts/2/responsive/finder_systemextesions-md.png 1024w ,https://novumus.github.io/nylle/media/posts/2/responsive/finder_systemextesions-lg.png 1366w ,https://novumus.github.io/nylle/media/posts/2/responsive/finder_systemextesions-xl.png 1600w ,https://novumus.github.io/nylle/media/posts/2/responsive/finder_systemextesions-2xl.png 1920w"></figure></p><h2 id="install-the-application">Install the application</h2>
+<p>Start the installation of the application. During installation, this box will appear:  <figure class="post__image"><img loading="lazy" src="https://novumus.github.io/nylle/media/posts/2/systemextention.png" alt="Image description" width="744" height="846" sizes="(max-width: 1920px) 100vw, 1920px" srcset="https://novumus.github.io/nylle/media/posts/2/responsive/systemextention-xs.png 640w ,https://novumus.github.io/nylle/media/posts/2/responsive/systemextention-sm.png 768w ,https://novumus.github.io/nylle/media/posts/2/responsive/systemextention-md.png 1024w ,https://novumus.github.io/nylle/media/posts/2/responsive/systemextention-lg.png 1366w ,https://novumus.github.io/nylle/media/posts/2/responsive/systemextention-xl.png 1600w ,https://novumus.github.io/nylle/media/posts/2/responsive/systemextention-2xl.png 1920w"></figure>
+Open System Settings / Privacy &amp; Security and scroll down a bit and you will see this image:</p><p>Click Allow <br><figure class="post__image"><img loading="lazy" src="https://novumus.github.io/nylle/media/posts/2/AllowinsystemSettings.png" alt="Image description" width="479" height="224" sizes="(max-width: 1920px) 100vw, 1920px" srcset="https://novumus.github.io/nylle/media/posts/2/responsive/AllowinsystemSettings-xs.png 640w ,https://novumus.github.io/nylle/media/posts/2/responsive/AllowinsystemSettings-sm.png 768w ,https://novumus.github.io/nylle/media/posts/2/responsive/AllowinsystemSettings-md.png 1024w ,https://novumus.github.io/nylle/media/posts/2/responsive/AllowinsystemSettings-lg.png 1366w ,https://novumus.github.io/nylle/media/posts/2/responsive/AllowinsystemSettings-xl.png 1600w ,https://novumus.github.io/nylle/media/posts/2/responsive/AllowinsystemSettings-2xl.png 1920w"></figure></p><p>You can also see this image, click Details and approve the program you are installing.
+<figure class="post__image"><img loading="lazy" src="https://novumus.github.io/nylle/media/posts/2/systeminstallningar_detaljer.png" alt="Image description" width="944" height="410" sizes="(max-width: 1920px) 100vw, 1920px" srcset="https://novumus.github.io/nylle/media/posts/2/responsive/systeminstallningar_detaljer-xs.png 640w ,https://novumus.github.io/nylle/media/posts/2/responsive/systeminstallningar_detaljer-sm.png 768w ,https://novumus.github.io/nylle/media/posts/2/responsive/systeminstallningar_detaljer-md.png 1024w ,https://novumus.github.io/nylle/media/posts/2/responsive/systeminstallningar_detaljer-lg.png 1366w ,https://novumus.github.io/nylle/media/posts/2/responsive/systeminstallningar_detaljer-xl.png 1600w ,https://novumus.github.io/nylle/media/posts/2/responsive/systeminstallningar_detaljer-2xl.png 1920w"></figure>
+After the installation of the application is complete, we check again with the command “systemextensionsctl list” in Terminal. Now on this computer we have (may vary depending on your application) two new system extensions installed.
+<figure class="post__image"><img loading="lazy" src="https://novumus.github.io/nylle/media/posts/2/efterinst_3_extensions.png" alt="Image description" width="567" height="170" sizes="(max-width: 1920px) 100vw, 1920px" srcset="https://novumus.github.io/nylle/media/posts/2/responsive/efterinst_3_extensions-xs.png 640w ,https://novumus.github.io/nylle/media/posts/2/responsive/efterinst_3_extensions-sm.png 768w ,https://novumus.github.io/nylle/media/posts/2/responsive/efterinst_3_extensions-md.png 1024w ,https://novumus.github.io/nylle/media/posts/2/responsive/efterinst_3_extensions-lg.png 1366w ,https://novumus.github.io/nylle/media/posts/2/responsive/efterinst_3_extensions-xl.png 1600w ,https://novumus.github.io/nylle/media/posts/2/responsive/efterinst_3_extensions-2xl.png 1920w"></figure></p><h2 id="create-plist-file">Create *.plist file</h2>
+<p>Then we will create a plist file that will need to be imported later in the “iMazing Profile Editor”.<br>Below I have created a plist file that we can use. Just make sure to change the Team ID and Bundle ID to the system extension that was installed.</p><pre><code>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
+&lt;!DOCTYPE plist PUBLIC &quot;-//Apple//DTD PLIST 1.0//EN&quot; &quot;http://www.apple.com/DTDs/PropertyList-1.0.dtd&quot;&gt;
+&lt;plist version=&quot;1.0&quot;&gt;
+&lt;dict&gt;
+    &lt;key&gt;B23J89K123&lt;/key&gt;
+    &lt;array&gt;
+        &lt;string&gt;om.blabla.tset&lt;/string&gt;
+        &lt;string&gt;com.blabla.tset.systset&lt;/string&gt;
+    &lt;/array&gt;
+&lt;/dict&gt;
+&lt;/plist&gt;
+</code></pre>
+<p>Save the plist file with example: filename: Allowed System Extensions.plist</p><h2 id="create-mobileconfig-fil">Create *.mobileconfig fil</h2>
+<p>Download “<a href="https://apps.apple.com/se/app/imazing-profile-editor/id1487860882?l=en-GB&mt=12" title="https://apps.apple.com/se/app/imazing-profile-editor/id1487860882?l=en-GB&amp;mt=12">iMazing Profile Editor</a>” and start the program.</p><p>Fill in the “General” information first.
+<figure class="post__image"><img src="https://novumus.github.io/nylle/media/posts/2/imazing_general.png" alt="Image description" width="1037" height="765" sizes="(max-width: 1920px) 100vw, 1920px" srcset="https://novumus.github.io/nylle/media/posts/2/responsive/imazing_general-xs.png 640w ,https://novumus.github.io/nylle/media/posts/2/responsive/imazing_general-sm.png 768w ,https://novumus.github.io/nylle/media/posts/2/responsive/imazing_general-md.png 1024w ,https://novumus.github.io/nylle/media/posts/2/responsive/imazing_general-lg.png 1366w ,https://novumus.github.io/nylle/media/posts/2/responsive/imazing_general-xl.png 1600w ,https://novumus.github.io/nylle/media/posts/2/responsive/imazing_general-2xl.png 1920w"></figure></p><figure class="post__image"><img loading="lazy" src="https://novumus.github.io/nylle/media/posts/2/imazing_general2.png" alt="Image description" width="767" height="753" sizes="(max-width: 1920px) 100vw, 1920px" srcset="https://novumus.github.io/nylle/media/posts/2/responsive/imazing_general2-xs.png 640w ,https://novumus.github.io/nylle/media/posts/2/responsive/imazing_general2-sm.png 768w ,https://novumus.github.io/nylle/media/posts/2/responsive/imazing_general2-md.png 1024w ,https://novumus.github.io/nylle/media/posts/2/responsive/imazing_general2-lg.png 1366w ,https://novumus.github.io/nylle/media/posts/2/responsive/imazing_general2-xl.png 1600w ,https://novumus.github.io/nylle/media/posts/2/responsive/imazing_general2-2xl.png 1920w"></figure><p>Look in the corner for “system extension policy” and click + Add Configuration Payload.
+<figure class="post__image"><img loading="lazy" src="https://novumus.github.io/nylle/media/posts/2/systemExtension_Policy.png" alt="Image description" width="1040" height="566" sizes="(max-width: 1920px) 100vw, 1920px" srcset="https://novumus.github.io/nylle/media/posts/2/responsive/systemExtension_Policy-xs.png 640w ,https://novumus.github.io/nylle/media/posts/2/responsive/systemExtension_Policy-sm.png 768w ,https://novumus.github.io/nylle/media/posts/2/responsive/systemExtension_Policy-md.png 1024w ,https://novumus.github.io/nylle/media/posts/2/responsive/systemExtension_Policy-lg.png 1366w ,https://novumus.github.io/nylle/media/posts/2/responsive/systemExtension_Policy-xl.png 1600w ,https://novumus.github.io/nylle/media/posts/2/responsive/systemExtension_Policy-2xl.png 1920w"></figure></p><p>Select choose on Allowed System Extensions
+<figure class="post__image"><img loading="lazy" src="https://novumus.github.io/nylle/media/posts/2/systemExtension_Policy2.png" alt="Image description" width="1041" height="758" sizes="(max-width: 1920px) 100vw, 1920px" srcset="https://novumus.github.io/nylle/media/posts/2/responsive/systemExtension_Policy2-xs.png 640w ,https://novumus.github.io/nylle/media/posts/2/responsive/systemExtension_Policy2-sm.png 768w ,https://novumus.github.io/nylle/media/posts/2/responsive/systemExtension_Policy2-md.png 1024w ,https://novumus.github.io/nylle/media/posts/2/responsive/systemExtension_Policy2-lg.png 1366w ,https://novumus.github.io/nylle/media/posts/2/responsive/systemExtension_Policy2-xl.png 1600w ,https://novumus.github.io/nylle/media/posts/2/responsive/systemExtension_Policy2-2xl.png 1920w"></figure></p><p>Select your created “Allowed System Extensions.plist” and click Open
+<figure class="post__image"><img loading="lazy" src="https://novumus.github.io/nylle/media/posts/2/open_plist.png" alt="Image description" width="653" height="436" sizes="(max-width: 1920px) 100vw, 1920px" srcset="https://novumus.github.io/nylle/media/posts/2/responsive/open_plist-xs.png 640w ,https://novumus.github.io/nylle/media/posts/2/responsive/open_plist-sm.png 768w ,https://novumus.github.io/nylle/media/posts/2/responsive/open_plist-md.png 1024w ,https://novumus.github.io/nylle/media/posts/2/responsive/open_plist-lg.png 1366w ,https://novumus.github.io/nylle/media/posts/2/responsive/open_plist-xl.png 1600w ,https://novumus.github.io/nylle/media/posts/2/responsive/open_plist-2xl.png 1920w"></figure></p><p>Your plist is now added
+<figure class="post__image"><img loading="lazy" src="https://novumus.github.io/nylle/media/posts/2/plist-added.png" alt="Image description" width="746" height="177" sizes="(max-width: 1920px) 100vw, 1920px" srcset="https://novumus.github.io/nylle/media/posts/2/responsive/plist-added-xs.png 640w ,https://novumus.github.io/nylle/media/posts/2/responsive/plist-added-sm.png 768w ,https://novumus.github.io/nylle/media/posts/2/responsive/plist-added-md.png 1024w ,https://novumus.github.io/nylle/media/posts/2/responsive/plist-added-lg.png 1366w ,https://novumus.github.io/nylle/media/posts/2/responsive/plist-added-xl.png 1600w ,https://novumus.github.io/nylle/media/posts/2/responsive/plist-added-2xl.png 1920w"></figure></p><p>Save your mobileconfig profile.
+<figure class="post__image"><img loading="lazy" src="https://novumus.github.io/nylle/media/posts/2/sav_as.png" alt="Image description" width="461" height="274" sizes="(max-width: 1920px) 100vw, 1920px" srcset="https://novumus.github.io/nylle/media/posts/2/responsive/sav_as-xs.png 640w ,https://novumus.github.io/nylle/media/posts/2/responsive/sav_as-sm.png 768w ,https://novumus.github.io/nylle/media/posts/2/responsive/sav_as-md.png 1024w ,https://novumus.github.io/nylle/media/posts/2/responsive/sav_as-lg.png 1366w ,https://novumus.github.io/nylle/media/posts/2/responsive/sav_as-xl.png 1600w ,https://novumus.github.io/nylle/media/posts/2/responsive/sav_as-2xl.png 1920w"></figure></p><p>Upload the mobileconfig file to your MDM and test it.</p>
+            ]]>
+        </content>
+    </entry>
+    <entry>
+        <title>Sign macOS pkg files</title>
+        <author>
+            <name>nylle</name>
+        </author>
+        <link href="https://novumus.github.io/nylle/blog/sign-macos-pkg-files/"/>
+        <id>https://novumus.github.io/nylle/blog/sign-macos-pkg-files/</id>
+        <media:content url="https://novumus.github.io/nylle/media/posts/1/Cover_Sign_MacOS_pkg_1500x1000.jpg" medium="image" />
+            <category term="tech"/>
+            <category term="pkg"/>
+            <category term="notarization"/>
+            <category term="macOS"/>
+            <category term="developer"/>
+            <category term="csr"/>
+            <category term="certificate"/>
+            <category term="apple"/>
+
+        <updated>2023-04-04T18:48:00+02:00</updated>
+            <summary>
+                <![CDATA[
+                        <img src="https://novumus.github.io/nylle/media/posts/1/Cover_Sign_MacOS_pkg_1500x1000.jpg" alt="" />
+                    Sign MacOS *.pkg files This guide will show how to get a certificate that will be used to sign and notarize pkg file. Two get a certificate we need to create a csr (certificate signing request) and that we can do in keychain access. Open Keychain&hellip;
+                ]]>
+            </summary>
+        <content type="html">
+            <![CDATA[
+                    <p><img src="https://novumus.github.io/nylle/media/posts/1/Cover_Sign_MacOS_pkg_1500x1000.jpg" class="type:primaryImage" alt="" /></p>
+                <h2 id="sign-macos-pkg-files">Sign MacOS *.pkg files</h2>
+<p>This guide will show how to get a certificate that will be used to sign and notarize pkg file.</p><h3 id="prerequisites">Prerequisites</h3>
+<ul>
+<li>Mac computer </li>
+<li>You’ll need an Apple developer account with a paid subscription.<br>Create a Apple Developer Account <a href="https://developer.apple.com/programs/">https://developer.apple.com/</a></li>
+</ul>
+<h2 id="create-csr">Create CSR</h2>
+<p>Two get a certificate we need to create a csr (certificate signing request) and that we can do in keychain access.</p><ol>
+<li><p>Open Keychain Access  under launchpad/Other or in Finder /Applications/Utilities.<br><figure class="post__image"><img loading="lazy" src="https://novumus.github.io/nylle/media/posts/1/Screenshot2023-04-0418.52.22.png" alt="Image description" width="1689" height="1000" sizes="(max-width: 1920px) 100vw, 1920px" srcset="https://novumus.github.io/nylle/media/posts/1/responsive/Screenshot2023-04-0418.52.22-xs.png 640w ,https://novumus.github.io/nylle/media/posts/1/responsive/Screenshot2023-04-0418.52.22-sm.png 768w ,https://novumus.github.io/nylle/media/posts/1/responsive/Screenshot2023-04-0418.52.22-md.png 1024w ,https://novumus.github.io/nylle/media/posts/1/responsive/Screenshot2023-04-0418.52.22-lg.png 1366w ,https://novumus.github.io/nylle/media/posts/1/responsive/Screenshot2023-04-0418.52.22-xl.png 1600w ,https://novumus.github.io/nylle/media/posts/1/responsive/Screenshot2023-04-0418.52.22-2xl.png 1920w"></figure></p></li>
+<li><p>In Keychain Access app click menu Keychain Access and point to Certificate Assistant and click on “Request a Certificate From a Certificate Authority”<br><figure class="post__image"><img loading="lazy" src="https://novumus.github.io/nylle/media/posts/1/Screenshot2023-04-0420.25.38.png" alt="Image description" width="1300" height="522" sizes="(max-width: 1920px) 100vw, 1920px" srcset="https://novumus.github.io/nylle/media/posts/1/responsive/Screenshot2023-04-0420.25.38-xs.png 640w ,https://novumus.github.io/nylle/media/posts/1/responsive/Screenshot2023-04-0420.25.38-sm.png 768w ,https://novumus.github.io/nylle/media/posts/1/responsive/Screenshot2023-04-0420.25.38-md.png 1024w ,https://novumus.github.io/nylle/media/posts/1/responsive/Screenshot2023-04-0420.25.38-lg.png 1366w ,https://novumus.github.io/nylle/media/posts/1/responsive/Screenshot2023-04-0420.25.38-xl.png 1600w ,https://novumus.github.io/nylle/media/posts/1/responsive/Screenshot2023-04-0420.25.38-2xl.png 1920w"></figure></p></li>
+<li><p>Dialog Certificate Assistant will appear </p><ul>
+<li>User Email Address: type you email</li>
+<li>Common name: a name that identify your certificate</li>
+<li>CA Email address: leave empty</li>
+<li>Let me specify key pair information: uncheck for “normal” use</li>
+<li>Choose Save to disk and click Continue<br><figure class="post__image"><img loading="lazy" src="https://novumus.github.io/nylle/media/posts/1/Screenshot2023-04-0420.28.03.png" alt="Image description" width="1220" height="874" sizes="(max-width: 1920px) 100vw, 1920px" srcset="https://novumus.github.io/nylle/media/posts/1/responsive/Screenshot2023-04-0420.28.03-xs.png 640w ,https://novumus.github.io/nylle/media/posts/1/responsive/Screenshot2023-04-0420.28.03-sm.png 768w ,https://novumus.github.io/nylle/media/posts/1/responsive/Screenshot2023-04-0420.28.03-md.png 1024w ,https://novumus.github.io/nylle/media/posts/1/responsive/Screenshot2023-04-0420.28.03-lg.png 1366w ,https://novumus.github.io/nylle/media/posts/1/responsive/Screenshot2023-04-0420.28.03-xl.png 1600w ,https://novumus.github.io/nylle/media/posts/1/responsive/Screenshot2023-04-0420.28.03-2xl.png 1920w"></figure></li>
+</ul>
+</li>
+<li><p>Save the “CertificateSigningRequest.certSigningRequest”<br><figure class="post__image"><img loading="lazy" src="https://novumus.github.io/nylle/media/posts/1/Screenshot2023-04-0420.14.22.png" alt="Image description" width="652" height="326" sizes="(max-width: 1920px) 100vw, 1920px" srcset="https://novumus.github.io/nylle/media/posts/1/responsive/Screenshot2023-04-0420.14.22-xs.png 640w ,https://novumus.github.io/nylle/media/posts/1/responsive/Screenshot2023-04-0420.14.22-sm.png 768w ,https://novumus.github.io/nylle/media/posts/1/responsive/Screenshot2023-04-0420.14.22-md.png 1024w ,https://novumus.github.io/nylle/media/posts/1/responsive/Screenshot2023-04-0420.14.22-lg.png 1366w ,https://novumus.github.io/nylle/media/posts/1/responsive/Screenshot2023-04-0420.14.22-xl.png 1600w ,https://novumus.github.io/nylle/media/posts/1/responsive/Screenshot2023-04-0420.14.22-2xl.png 1920w"></figure></p></li>
+<li><p>Conclusion Click Show in Finder or click Done<br><figure class="post__image"><img loading="lazy" src="https://novumus.github.io/nylle/media/posts/1/Screenshot2023-04-0420.29.55.png" alt="Image description" width="1222" height="874" sizes="(max-width: 1920px) 100vw, 1920px" srcset="https://novumus.github.io/nylle/media/posts/1/responsive/Screenshot2023-04-0420.29.55-xs.png 640w ,https://novumus.github.io/nylle/media/posts/1/responsive/Screenshot2023-04-0420.29.55-sm.png 768w ,https://novumus.github.io/nylle/media/posts/1/responsive/Screenshot2023-04-0420.29.55-md.png 1024w ,https://novumus.github.io/nylle/media/posts/1/responsive/Screenshot2023-04-0420.29.55-lg.png 1366w ,https://novumus.github.io/nylle/media/posts/1/responsive/Screenshot2023-04-0420.29.55-xl.png 1600w ,https://novumus.github.io/nylle/media/posts/1/responsive/Screenshot2023-04-0420.29.55-2xl.png 1920w"></figure></p></li>
+<li><p>In Finder your “CertificateSigningRequest.certSigningRequest” should be located<br><figure class="post__image"><img loading="lazy" src="https://novumus.github.io/nylle/media/posts/1/Screenshot2023-04-0420.32.25.png" alt="Image description" width="858" height="168" sizes="(max-width: 1920px) 100vw, 1920px" srcset="https://novumus.github.io/nylle/media/posts/1/responsive/Screenshot2023-04-0420.32.25-xs.png 640w ,https://novumus.github.io/nylle/media/posts/1/responsive/Screenshot2023-04-0420.32.25-sm.png 768w ,https://novumus.github.io/nylle/media/posts/1/responsive/Screenshot2023-04-0420.32.25-md.png 1024w ,https://novumus.github.io/nylle/media/posts/1/responsive/Screenshot2023-04-0420.32.25-lg.png 1366w ,https://novumus.github.io/nylle/media/posts/1/responsive/Screenshot2023-04-0420.32.25-xl.png 1600w ,https://novumus.github.io/nylle/media/posts/1/responsive/Screenshot2023-04-0420.32.25-2xl.png 1920w"></figure>
+  6b. <em>In you want to see the what is in the CSR use a decoder</em>  </p><ul>
+<li>open the CSR in TextEdit and it should look something like this</li>
+</ul>
+</li>
+</ol>
+<figure class="post__image"><img loading="lazy" src="https://novumus.github.io/nylle/media/posts/1/Screenshot2023-04-0420.37.32.png" alt="Image description" width="1038" height="488" sizes="(max-width: 1920px) 100vw, 1920px" srcset="https://novumus.github.io/nylle/media/posts/1/responsive/Screenshot2023-04-0420.37.32-xs.png 640w ,https://novumus.github.io/nylle/media/posts/1/responsive/Screenshot2023-04-0420.37.32-sm.png 768w ,https://novumus.github.io/nylle/media/posts/1/responsive/Screenshot2023-04-0420.37.32-md.png 1024w ,https://novumus.github.io/nylle/media/posts/1/responsive/Screenshot2023-04-0420.37.32-lg.png 1366w ,https://novumus.github.io/nylle/media/posts/1/responsive/Screenshot2023-04-0420.37.32-xl.png 1600w ,https://novumus.github.io/nylle/media/posts/1/responsive/Screenshot2023-04-0420.37.32-2xl.png 1920w"></figure>
+    - Copy everything in the TextEdit, cmd+a and cmd+c<br>    - Go to <a href="https://certlogik.com/decoder/">https://certlogik.com/decoder/</a> and paste the content and press decode<br><figure class="post__image"><img loading="lazy" src="https://novumus.github.io/nylle/media/posts/1/Screenshot2023-04-0420.40.28.png" alt="Image description" width="1982" height="1414" sizes="(max-width: 1920px) 100vw, 1920px" srcset="https://novumus.github.io/nylle/media/posts/1/responsive/Screenshot2023-04-0420.40.28-xs.png 640w ,https://novumus.github.io/nylle/media/posts/1/responsive/Screenshot2023-04-0420.40.28-sm.png 768w ,https://novumus.github.io/nylle/media/posts/1/responsive/Screenshot2023-04-0420.40.28-md.png 1024w ,https://novumus.github.io/nylle/media/posts/1/responsive/Screenshot2023-04-0420.40.28-lg.png 1366w ,https://novumus.github.io/nylle/media/posts/1/responsive/Screenshot2023-04-0420.40.28-xl.png 1600w ,https://novumus.github.io/nylle/media/posts/1/responsive/Screenshot2023-04-0420.40.28-2xl.png 1920w"></figure>
+    - Check that CSR Check are OK and emailAddress and emailAddress Name is what you wrote in the CSR in Certificate Assistant <br><figure class="post__image"><img loading="lazy" src="https://novumus.github.io/nylle/media/posts/1/Screenshot2023-04-0420.41.28.png" alt="Image description" width="1936" height="1518" sizes="(max-width: 1920px) 100vw, 1920px" srcset="https://novumus.github.io/nylle/media/posts/1/responsive/Screenshot2023-04-0420.41.28-xs.png 640w ,https://novumus.github.io/nylle/media/posts/1/responsive/Screenshot2023-04-0420.41.28-sm.png 768w ,https://novumus.github.io/nylle/media/posts/1/responsive/Screenshot2023-04-0420.41.28-md.png 1024w ,https://novumus.github.io/nylle/media/posts/1/responsive/Screenshot2023-04-0420.41.28-lg.png 1366w ,https://novumus.github.io/nylle/media/posts/1/responsive/Screenshot2023-04-0420.41.28-xl.png 1600w ,https://novumus.github.io/nylle/media/posts/1/responsive/Screenshot2023-04-0420.41.28-2xl.png 1920w"></figure>
+7. Check Private/Public Key for newly created CSR
+    - In KeyChain Access press login on the left sidebar
+    - In Keychain Access press Item Keys 
+    - There you should se the Common name of your Private/Public key <figure class="post__image"><img loading="lazy" src="https://novumus.github.io/nylle/media/posts/1/Screenshot2023-04-0420.50.09.png" alt="Image description" width="1752" height="722" sizes="(max-width: 1920px) 100vw, 1920px" srcset="https://novumus.github.io/nylle/media/posts/1/responsive/Screenshot2023-04-0420.50.09-xs.png 640w ,https://novumus.github.io/nylle/media/posts/1/responsive/Screenshot2023-04-0420.50.09-sm.png 768w ,https://novumus.github.io/nylle/media/posts/1/responsive/Screenshot2023-04-0420.50.09-md.png 1024w ,https://novumus.github.io/nylle/media/posts/1/responsive/Screenshot2023-04-0420.50.09-lg.png 1366w ,https://novumus.github.io/nylle/media/posts/1/responsive/Screenshot2023-04-0420.50.09-xl.png 1600w ,https://novumus.github.io/nylle/media/posts/1/responsive/Screenshot2023-04-0420.50.09-2xl.png 1920w"></figure><h2 id="request-your-certificate">Request your certificate</h2>
+<p>Go to Apple webpage and generate certificate to be used to sign the pkg. </p><ol>
+<li><p>Go to: <a href="https://developer.apple.com/account/resources">https://developer.apple.com/account/resources</a> and sign in<br><figure class="post__image"><img loading="lazy" src="https://novumus.github.io/nylle/media/posts/1/Screenshot2023-04-2421.13.15.png" alt="Image description" width="992" height="812" sizes="(max-width: 1920px) 100vw, 1920px" srcset="https://novumus.github.io/nylle/media/posts/1/responsive/Screenshot2023-04-2421.13.15-xs.png 640w ,https://novumus.github.io/nylle/media/posts/1/responsive/Screenshot2023-04-2421.13.15-sm.png 768w ,https://novumus.github.io/nylle/media/posts/1/responsive/Screenshot2023-04-2421.13.15-md.png 1024w ,https://novumus.github.io/nylle/media/posts/1/responsive/Screenshot2023-04-2421.13.15-lg.png 1366w ,https://novumus.github.io/nylle/media/posts/1/responsive/Screenshot2023-04-2421.13.15-xl.png 1600w ,https://novumus.github.io/nylle/media/posts/1/responsive/Screenshot2023-04-2421.13.15-2xl.png 1920w"></figure></p></li>
+<li><p>Click Certificates in the sidebar.<br><figure class="post__image"><img loading="lazy" src="https://novumus.github.io/nylle/media/posts/1/sidebar.jpg" alt="Image description" width="1500" height="475" sizes="(max-width: 1920px) 100vw, 1920px" srcset="https://novumus.github.io/nylle/media/posts/1/responsive/sidebar-xs.jpg 640w ,https://novumus.github.io/nylle/media/posts/1/responsive/sidebar-sm.jpg 768w ,https://novumus.github.io/nylle/media/posts/1/responsive/sidebar-md.jpg 1024w ,https://novumus.github.io/nylle/media/posts/1/responsive/sidebar-lg.jpg 1366w ,https://novumus.github.io/nylle/media/posts/1/responsive/sidebar-xl.jpg 1600w ,https://novumus.github.io/nylle/media/posts/1/responsive/sidebar-2xl.jpg 1920w"></figure></p></li>
+<li><p>Click the blue + button </p></li>
+<li><p>Under Software, select one and click Continue</p><ul>
+<li><em>Developer ID Installer:</em> A certificate used to sign a Mac Installer Package, containing your signed app.</li>
+<li><em>Developer ID Application:</em> A certificate used to sign a Mac app. (notarize)</li>
+</ul>
+</li>
+</ol>
+<p><figure class="post__image"><img loading="lazy" src="https://novumus.github.io/nylle/media/posts/1/developerinsapp.jpg" alt="Image description" width="2586" height="968" sizes="(max-width: 1920px) 100vw, 1920px" srcset="https://novumus.github.io/nylle/media/posts/1/responsive/developerinsapp-xs.jpg 640w ,https://novumus.github.io/nylle/media/posts/1/responsive/developerinsapp-sm.jpg 768w ,https://novumus.github.io/nylle/media/posts/1/responsive/developerinsapp-md.jpg 1024w ,https://novumus.github.io/nylle/media/posts/1/responsive/developerinsapp-lg.jpg 1366w ,https://novumus.github.io/nylle/media/posts/1/responsive/developerinsapp-xl.jpg 1600w ,https://novumus.github.io/nylle/media/posts/1/responsive/developerinsapp-2xl.jpg 1920w"></figure>
+5. Click Choose File.
+6. In the dialog that appears, select the certificate request file (a file with a <code>.certSigningRequest</code> file extension), then click Choose.
+7. Click Continue.<br><figure class="post__image"><img loading="lazy" src="https://novumus.github.io/nylle/media/posts/1/csr.jpg" alt="Image description" width="2517" height="952" sizes="(max-width: 1920px) 100vw, 1920px" srcset="https://novumus.github.io/nylle/media/posts/1/responsive/csr-xs.jpg 640w ,https://novumus.github.io/nylle/media/posts/1/responsive/csr-sm.jpg 768w ,https://novumus.github.io/nylle/media/posts/1/responsive/csr-md.jpg 1024w ,https://novumus.github.io/nylle/media/posts/1/responsive/csr-lg.jpg 1366w ,https://novumus.github.io/nylle/media/posts/1/responsive/csr-xl.jpg 1600w ,https://novumus.github.io/nylle/media/posts/1/responsive/csr-2xl.jpg 1920w"></figure>
+8. Click Download.
+9. Repeat from point 4 for the other certificate, use the same csr.
+10. In Developer portal their should now be two certificates.<br><figure class="post__image"><img loading="lazy" src="https://novumus.github.io/nylle/media/posts/1/developer.jpg" alt="Image description" width="2500" height="986" sizes="(max-width: 1920px) 100vw, 1920px" srcset="https://novumus.github.io/nylle/media/posts/1/responsive/developer-xs.jpg 640w ,https://novumus.github.io/nylle/media/posts/1/responsive/developer-sm.jpg 768w ,https://novumus.github.io/nylle/media/posts/1/responsive/developer-md.jpg 1024w ,https://novumus.github.io/nylle/media/posts/1/responsive/developer-lg.jpg 1366w ,https://novumus.github.io/nylle/media/posts/1/responsive/developer-xl.jpg 1600w ,https://novumus.github.io/nylle/media/posts/1/responsive/developer-2xl.jpg 1920w"></figure>
+11. The certificate file (a file with a <code>.cer</code> file extension) appears in your <code>Downloads</code> folder.
+12. To install the certificate in your keychain, double-click the downloaded certificate file. The certificate appears in the My Certificates category in Keychain Access.
+13. In Keychain Access the certificate should be shown with the name: <em>Developer ID Installer:</em> Name of Common name (TeamID)
+14. Use Terminal to check the that you have the certificate installed</p><pre><code>security find-identity -p basic -v
+</code></pre>
+<pre><code>------ RESULT: ------
+1) XXXXX[REDACTED] &quot;Developer ID Installer: Name of Common name (TeamID)&quot; 
+2) XXXXX[REDACTED] &quot;Developer ID Application: Name of Common name (TeamID)” 
+3) [REDACTED] &quot;[REDACTED]&quot; 3 valid identities found
+</code></pre>
+<h2 id="sign-pkg-file">Sign pkg file</h2>
+<ol>
+<li>Open Terminal and run the code below to sign the pkg and get a new signed version<ul>
+<li>--sign: Common Name of the certificate</li>
+<li>/Download/package.pkg is the existing package</li>
+<li>/Download/signed-package.pkg is the signed package</li>
+</ul>
+</li>
+</ol>
+<p> </p><pre><code>productsign --sign &quot;Developer ID Installer: Name of Common name (TeamID)&quot; /Download/package.pkg /Download/signed-package.pkg
+</code></pre>
+<pre><code>------ RESULT: ------
+productsign: using timestamp authority for signature
+productsign: signing product with identity &quot;Developer ID Installer: Name of Common name (TeamID)&quot; from keychain /Users/username/Library/Keychains/login.keychain-db
+productsign: adding certificate &quot;Developer ID Certification Authority&quot;
+productsign: adding certificate &quot;Apple Root CA&quot;
+productsign: Wrote signed product archive to /Download/signed-package.pkg
+</code></pre>
+<h3 id="tip">TIP!</h3>
+<p><em>Third-party tools for signing pkg</em></p><p><strong><em>Hancock is a GUI tool for signing packages</em></strong></p><p><strong><em><a href="https://github.com/JeremyAgost/Hancock">https://github.com/JeremyAgost/Hancock</a></em></strong> </p><p>In Terminal  </p><pre><code>pkgutil --check-signature /Download/signed-package.pkg
+</code></pre>
+<pre><code>------ RESULT: ------
+Package &quot;signed-package.pkg&quot;:
+   Status: signed by a developer certificate issued by Apple for distribution
+   Signed with a trusted timestamp on: 2023-04-24 20:00:30 +0000
+   Certificate Chain:
+    1. Developer ID Installer: Name of Comman name (TeamID)
+       Expires: 2028-09-04 17:12:15 +0000
+       SHA256 Fingerprint:
+           23 5B E7 06 DD 8F 3D D8 4B 4D 45 ED 2A 7B 66 E2 30 BD D7 30 4B 3F 
+           F6 D7 16 98 EE C1 82 89 78 A4
+       ------------------------------------------------------------------------
+    2. Developer ID Certification Authority
+       Expires: 2029-02-01 22:12:15 +0000
+       SHA256 Fingerprint:
+           2A FC 9D 01 A6 1E 03 A2 DE 96 37 93 6D 4A FE 68 09 0D 2D E1 8D 03 
+           C2 9C 58 CF F0 B1 FF 93 58 7F
+       ------------------------------------------------------------------------
+    3. Apple Root CA
+       Expires: 2035-02-09 21:40:36 +0000
+       SHA256 Fingerprint:
+           A0 B1 13 0E CB C7 FF 45 05 A0 2C 49 F1 29 5E 6E DA 6A CA 9D 7E 2C 
+           98 B5 BE 91 B5 A1 10 34 F0 12
+</code></pre>
+<h2 id="notarization">Notarization</h2>
+<h3 id="create-an-app-password">Create an app password</h3>
+<p><a href="https://support.apple.com/en-us/HT204397">https://support.apple.com/en-us/HT204397</a>  </p><ol>
+<li><p>How to generate an app-specific password</p></li>
+<li><p>Sign in to appleid.apple.com.<br><figure class="post__image"><img loading="lazy" src="https://novumus.github.io/nylle/media/posts/1/Screenshot2023-04-2422.27.29.png" alt="Image description" width="1596" height="636" sizes="(max-width: 1920px) 100vw, 1920px" srcset="https://novumus.github.io/nylle/media/posts/1/responsive/Screenshot2023-04-2422.27.29-xs.png 640w ,https://novumus.github.io/nylle/media/posts/1/responsive/Screenshot2023-04-2422.27.29-sm.png 768w ,https://novumus.github.io/nylle/media/posts/1/responsive/Screenshot2023-04-2422.27.29-md.png 1024w ,https://novumus.github.io/nylle/media/posts/1/responsive/Screenshot2023-04-2422.27.29-lg.png 1366w ,https://novumus.github.io/nylle/media/posts/1/responsive/Screenshot2023-04-2422.27.29-xl.png 1600w ,https://novumus.github.io/nylle/media/posts/1/responsive/Screenshot2023-04-2422.27.29-2xl.png 1920w"></figure></p></li>
+<li><p>In the Sign-In and Security section, select App-Specific Passwords.<figure class="post__image"><img loading="lazy" src="https://novumus.github.io/nylle/media/posts/1/Screenshot2023-04-2422.28.42.png" alt="Image description" width="690" height="298" sizes="(max-width: 1920px) 100vw, 1920px" srcset="https://novumus.github.io/nylle/media/posts/1/responsive/Screenshot2023-04-2422.28.42-xs.png 640w ,https://novumus.github.io/nylle/media/posts/1/responsive/Screenshot2023-04-2422.28.42-sm.png 768w ,https://novumus.github.io/nylle/media/posts/1/responsive/Screenshot2023-04-2422.28.42-md.png 1024w ,https://novumus.github.io/nylle/media/posts/1/responsive/Screenshot2023-04-2422.28.42-lg.png 1366w ,https://novumus.github.io/nylle/media/posts/1/responsive/Screenshot2023-04-2422.28.42-xl.png 1600w ,https://novumus.github.io/nylle/media/posts/1/responsive/Screenshot2023-04-2422.28.42-2xl.png 1920w"></figure></p></li>
+<li><p>Select Generate an app-specific password or select the Add button Blue plus sign icon., then follow the steps on your screen.<figure class="post__image"><img loading="lazy" src="https://novumus.github.io/nylle/media/posts/1/passwordblue.jpg" alt="Image description" width="1122" height="692" sizes="(max-width: 1920px) 100vw, 1920px" srcset="https://novumus.github.io/nylle/media/posts/1/responsive/passwordblue-xs.jpg 640w ,https://novumus.github.io/nylle/media/posts/1/responsive/passwordblue-sm.jpg 768w ,https://novumus.github.io/nylle/media/posts/1/responsive/passwordblue-md.jpg 1024w ,https://novumus.github.io/nylle/media/posts/1/responsive/passwordblue-lg.jpg 1366w ,https://novumus.github.io/nylle/media/posts/1/responsive/passwordblue-xl.jpg 1600w ,https://novumus.github.io/nylle/media/posts/1/responsive/passwordblue-2xl.jpg 1920w"></figure></p></li>
+<li><p>The app-specific password is created.<figure class="post__image"><img loading="lazy" src="https://novumus.github.io/nylle/media/posts/1/apppass.jpg" alt="Image description" width="862" height="570" sizes="(max-width: 1920px) 100vw, 1920px" srcset="https://novumus.github.io/nylle/media/posts/1/responsive/apppass-xs.jpg 640w ,https://novumus.github.io/nylle/media/posts/1/responsive/apppass-sm.jpg 768w ,https://novumus.github.io/nylle/media/posts/1/responsive/apppass-md.jpg 1024w ,https://novumus.github.io/nylle/media/posts/1/responsive/apppass-lg.jpg 1366w ,https://novumus.github.io/nylle/media/posts/1/responsive/apppass-xl.jpg 1600w ,https://novumus.github.io/nylle/media/posts/1/responsive/apppass-2xl.jpg 1920w"></figure></p></li>
+</ol>
+<h3 id="add-the-app-specific-password-to-keychain">Add the app-specific password to keychain</h3>
+<p>From Terminal run:   </p><pre><code>xcrun notarytool store-credentials --apple-id &quot;email@domain.com&quot; --team-id &quot;K7UYGV72CA&quot;
+</code></pre>
+<p>Here two questions need to be answered </p><ul>
+<li>Type a profile name</li>
+<li>Type the app specific password</li>
+</ul>
+<p> </p><p>This will store the app-specific credentials securely in the Keychain.   </p><pre><code>------ RESULT: ------
+Profile name: notarize-YOUR_APP
+App-specific password for &quot;email@domain.com&quot;
+Validating your credentials...
+Success. Credentials validated.
+Credentials saved to Keychain.
+To use them, specify `--keychain-profile &quot;notarize-YOUR_APP&quot;
+</code></pre>
+<p>Let’s notarize the PKG file by using this command:</p><pre><code>xcrun notarytool submit /Download/signed-package.pkg --keychain-profile &quot;notarize-YOUR_APP&quot;
+</code></pre>
+<pre><code>------ RESULT: ------
+xcrun notarytool submit /Download/signed-package.pkg  --keychain-profile &quot;notarize-YOUR_APP&quot;
+Conducting pre-submission checks for applicationpkg and initiating connection to the Apple notary service...
+Submission ID received
+id: 914c123d-c7ca-6789-a6f0-79f416f76632
+Upload progress: 100,00% (38,3 MB of 38,3 MB)
+Successfully uploaded file
+id: 914c123d-c7ca-6789-a6f0-79f416f76632
+path: /Download/signed-package.pkg
+</code></pre>
+<p>Information about submission</p><pre><code>xcrun notarytool info --keychain-profile &quot;notarize-YOUR_APP&quot; 914c123d-c7ca-6789-a6f0-79f416f76632
+</code></pre>
+<p>This process takes about 15 minutes and status should say In Progress</p><pre><code>------ RESULT: ------
+Successfully received submission info
+  createdDate: 2023-04-24T11:18:28.350Z
+  id: 914c123d-c7ca-6789-a6f0-79f416f76632
+  name: signed-package.pkg
+  status: In Progress
+</code></pre>
+<p>After about 15 minutes if everything goes ok, status should be Accepted</p><pre><code>------ RESULT: ------
+Successfully received submission info
+  createdDate: 2023-04-24T11:18:28.350Z
+  id: 914c123d-c7ca-6789-a6f0-79f416f76632
+  name: signed-package.pkg
+  status: Accepted
+</code></pre>
+<p>Stapling a PKG File:</p><pre><code>xcrun stapler staple /Download/signed-package.pkg
+</code></pre>
+<pre><code>------ RESULT: ------
+Processing: /Download/signed-package.pkg
+Processing: /Download/signed-package.pkg
+The staple and validate action worked!
+</code></pre>
+<p>Verify the Package file:</p><pre><code>pkgutil --check-signature /Download/signed-package.pkg
+</code></pre>
+<pre><code> ------ RESULT: ------
+Status: signed by a developer certificate issued by Apple for distribution
+ Notarization: trusted by the Apple notary service
+ Signed with a trusted timestamp on: 2023-04-24 20:00:30 +0000
+   Certificate Chain:
+    1. Developer ID Installer: Name of Comman name (TeamID)
+       Expires: 2028-09-04 17:12:15 +0000
+       SHA256 Fingerprint:
+           23 5B E7 06 DD 8F 3D D8 4B 4D 45 ED 2A 7B 66 E2 30 BD D7 30 4B 3F 
+           F6 D7 16 98 EE C1 82 89 78 A4
+       ------------------------------------------------------------------------
+    2. Developer ID Certification Authority
+       Expires: 2029-02-01 22:12:15 +0000
+       SHA256 Fingerprint:
+           2A FC 9D 01 A6 1E 03 A2 DE 96 37 93 6D 4A FE 68 09 0D 2D E1 8D 03 
+           C2 9C 58 CF F0 B1 FF 93 58 7F
+       ------------------------------------------------------------------------
+    3. Apple Root CA
+       Expires: 2035-02-09 21:40:36 +0000
+       SHA256 Fingerprint:
+           A0 B1 13 0E CB C7 FF 45 05 A0 2C 49 F1 29 5E 6E DA 6A CA 9D 7E 2C 
+           98 B5 BE 91 B5 A1 10 34 F0 12
+</code></pre>
+<h3 id="if-something-goes-wrong-fetch-the-logs">If something goes wrong, fetch the logs</h3>
+<pre><code>xcrun notarytool log --keychain-profile &quot;notarize-YOUR_APP&quot; 914c123d-c7ca-6789-a6f0-79f416f76632
+</code></pre>
+
+            ]]>
+        </content>
+    </entry>
+</feed>
